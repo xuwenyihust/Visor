@@ -1,0 +1,3 @@
+# Fake log files generator
+
+
