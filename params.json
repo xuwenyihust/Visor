@@ -1,0 +1,6 @@
+{
+  "name": "Visor",
+  "tagline": "Log file monitor.",
+  "body": "# Visor\r\nLog file monitor.\r\n\r\n## Usage\r\n\r\n## Log Format\r\n### Common Log Format\r\n**Example**\r\n> 127.0.0.1 user-identifier frank [10/Oct/2000:13:55:36 -0700] \"GET /apache_pb.gif HTTP/1.0\" 200 2326\r\n\r\n**Fields**\r\n\r\n|Field|\r\n|-----|\r\n|IP address of the client|\r\n|RFC 1413 identity of the client|\r\n|UserID of the client|\r\n|Request line from the client|\r\n|HTTP status code|\r\n|Size of the object returned to the client|\r\n\r\n## Requirements\r\n\r\n## Resources\r\n\r\n## License\r\nSee the LICENSE file for license rights and limitations (MIT).\r\n\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
