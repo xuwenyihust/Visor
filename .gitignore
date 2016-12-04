@@ -1,0 +1,3 @@
+script/fake_logfile
+src/fake_log_gen/.fake_log_gen.py.swp
+src/fake_log_gen/.fake_log_generator.py.swp
