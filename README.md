@@ -5,9 +5,10 @@ Log file monitor.
 
 ## Log Format
 ### Common Log Format
-*Example*
+**Example**
 > 127.0.0.1 user-identifier frank [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326
-*Fields*
+
+**Fields**
 |Field|
 |IP address of the client|
 |RFC 1413 identity of the client|
