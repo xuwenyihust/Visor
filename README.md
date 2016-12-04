@@ -10,6 +10,7 @@ Log file monitor.
 
 **Fields**
 |Field|
+|-----|
 |IP address of the client|
 |RFC 1413 identity of the client|
 |UserID of the client|
