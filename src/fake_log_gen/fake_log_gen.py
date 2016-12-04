@@ -22,7 +22,7 @@ import asyncio
 from asyncio import coroutine
 
 
-class fake_log_gen():
+#class fake_log_gen():
 	
 #	def __init__(self):
 		
@@ -57,10 +57,10 @@ def main():
 	# Add the file Handler 'out' to the logger'log'
 	log.addHandler(out)
 
-	'''Test Logging
+	#Test Logging
 	log.info("INFO!")
 	log.error("Error!")
-	'''
+	
 
 	# Instantiate a fake log generator
 	#log_gen = fake_log_gen()
