@@ -18,6 +18,8 @@
 import random
 import logging
 import argparse
+import asyncio
+from asyncio import coroutine
 
 
 class fake_log_gen():
