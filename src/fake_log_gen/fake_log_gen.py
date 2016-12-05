@@ -3,6 +3,11 @@
 # Usage:
 #	python 3.4 fake_log_gen [fake_logfile]
 #
+# Format:
+#
+#  Error log:
+#	[Wed Oct 11 14:32:52 2000] [error] [client 127.0.0.1] client denied by server configuration: /export/home/live/ap/htdocs/test
+
 
 import random
 import logging
@@ -20,17 +25,18 @@ class fake_log_gen():
 		loop = asyncio.get_event_loop()
 		loop.run_until_complete(
 			asyncio.wait([
-				self.common_lines()]))
+				self.heartbeat_lines()]))
 		loop.close()
 
 
 	@coroutine
 	def heartbeat_lines(self):
 		while True:
-			self.log.info("INFO!")
+			self.log.info("[-] HEARTBEAT")
 			yield from asyncio.sleep(3.0)
-
-	def warning_lines(self);
+	
+#	@coroutine
+#	def warning_lines(self);
 
 
 #	def error_lines(self):
@@ -48,7 +54,8 @@ def main():
 	# Instantiate a file Handler
 	out = logging.FileHandler(args.fake_logfile)
 	# Instantiate a Formatter
-	log_format = logging.Formatter()
+	# Format the time string
+	log_format = logging.Formatter("[%(asctime)s][%(levelname)s]%(message)s", "%a %b %d %H:%M:%S %Y")
 	# Set the Formatter for this Handler to form
 	out.setFormatter(log_format)
 	# Add the file Handler 'out' to the logger'log'

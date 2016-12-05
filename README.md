@@ -31,6 +31,7 @@ Log file monitor.
 ## Requirements
 
 ## Resources
+* [Apache Log Files](https://httpd.apache.org/docs/1.3/logs.html)
 
 ## License
 See the LICENSE file for license rights and limitations (MIT).
