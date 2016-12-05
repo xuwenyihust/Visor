@@ -6,22 +6,24 @@ Log file monitor.
 ## Usage
 
 ## Log Format
-### Common Log Format
-host ident authuser date request status bytes
+### Apache Log
 
-**Example**
+**Access Log**
 > 127.0.0.1 user-identifier frank [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326
+
+**Error Log**
+> [Wed Oct 11 14:32:52 2000] [error] [client 127.0.0.1] client denied by server configuration: /export/home/live/ap/htdocs/test
 
 **Fields**
 
-|Field|
-|-----|
-|IP address of the client|
-|RFC 1413 identity of the client|
-|UserID of the client|
-|Request line from the client|
-|HTTP status code|
-|Size of the object returned to the client|
+|Access Log Fields|Error Log Fields|
+|-----|-----|
+|IP address of the client|Date and time|
+|RFC 1413 identity of the client|The module producing the message|
+|UserID of the client|Process ID|
+|Request line from the client|Client Address|
+|HTTP status code|Detailed error message|
+|Size of the object returned to the client||
 
 ## Requirements
 
