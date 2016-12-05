@@ -3,8 +3,6 @@ Log file monitor.
 
  *https://xuwenyihust.github.io/Visor/*
 
-## Usage
-
 ## Log Format
 ### Apache Log
 
@@ -24,6 +22,11 @@ Log file monitor.
 |Request line from the client|Client Address|
 |HTTP status code|Detailed error message|
 |Size of the object returned to the client||
+
+
+## Usage
+
+## Example
 
 ## Requirements
 

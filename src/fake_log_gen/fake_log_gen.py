@@ -25,12 +25,12 @@ class fake_log_gen():
 
 
 	@coroutine
-	def common_lines(self):
+	def heartbeat_lines(self):
 		while True:
 			self.log.info("INFO!")
 			yield from asyncio.sleep(3.0)
 
-#	def warning_lines(self);
+	def warning_lines(self);
 
 
 #	def error_lines(self):
