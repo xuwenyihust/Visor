@@ -22,21 +22,29 @@ import asyncio
 from asyncio import coroutine
 
 
-#class fake_log_gen():
+class fake_log_gen():
 	
-#	def __init__(self):
-		
+	def __init__(self, log):
+		self.log = log
 
-#	def run(): 
-		
+	def run(self): 
+		loop = asyncio.get_event_loop()
+		loop.run_until_complete(
+			asyncio.wait([
+				self.common_lines()]))
+		loop.close()
 
-#	def common_lines():
+
+	@coroutine
+	def common_lines(self):
+		while True:
+			self.log.info("INFO!")
+			yield from asyncio.sleep(3.0)
+
+#	def warning_lines(self);
 
 
-#	def warning_lines();
-
-
-#	def error_lines():
+#	def error_lines(self):
 
 
 def main():
@@ -58,14 +66,14 @@ def main():
 	log.addHandler(out)
 
 	#Test Logging
-	log.info("INFO!")
+	'''log.info("INFO!")
 	log.error("Error!")
-	
+	'''
 
 	# Instantiate a fake log generator
-	#log_gen = fake_log_gen()
+	log_gen = fake_log_gen(log)
 
-	#log_gen.run()
+	log_gen.run()
 
 
 
