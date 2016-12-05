@@ -1,0 +1,13 @@
+{
+	"heartbeat" : {
+		"interval": "3",
+		"message": "HEARBEAT"
+		},
+	"warning": {
+		"interval": {
+			"min": 5,
+			"max": 30
+			},
+		"message": ["0", "1", "2", "3", "4"]
+		}
+}

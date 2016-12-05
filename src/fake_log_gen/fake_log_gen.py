@@ -10,6 +10,7 @@
 
 
 import random
+import json
 import logging
 import argparse
 import asyncio
@@ -18,26 +19,35 @@ from asyncio import coroutine
 
 class fake_log_gen():
 	
-	def __init__(self, log):
+	def __init__(self, log, config):
 		self.log = log
+		self.config = config
 
 	def run(self): 
 		loop = asyncio.get_event_loop()
 		loop.run_until_complete(
 			asyncio.wait([
-				self.heartbeat_lines()]))
+				self.heartbeat_lines(),
+				self.warning_lines()]))
 		loop.close()
 
 
 	@coroutine
 	def heartbeat_lines(self):
 		while True:
-			self.log.info("[-] HEARTBEAT")
-			yield from asyncio.sleep(3.0)
+			self.log.info("[-] " + self.config["heartbeat"]["message"])
+			yield from asyncio.sleep(int(self.config["heartbeat"]["interval"]))
 	
-#	@coroutine
-#	def warning_lines(self);
+	@coroutine
+	def warning_lines(self):
 
+		warn_min = self.config["warning"]["interval"]["min"]
+		warn_max = self.config["warning"]["interval"]["max"]
+		warnings = self.config["warning"]["message"]
+
+		while True:
+			self.log.warning("[client %s] %s", '.'.join(str(random.randint(0, 255)) for i in range(4)), warnings[random.randrange(len(warnings))])
+			yield from asyncio.sleep(random.uniform(warn_min, warn_max))
 
 #	def error_lines(self):
 
@@ -55,7 +65,7 @@ def main():
 	out = logging.FileHandler(args.fake_logfile)
 	# Instantiate a Formatter
 	# Format the time string
-	log_format = logging.Formatter("[%(asctime)s][%(levelname)s]%(message)s", "%a %b %d %H:%M:%S %Y")
+	log_format = logging.Formatter("[%(asctime)s] [%(levelname)s] %(message)s", "%a %b %d %H:%M:%S %Y")
 	# Set the Formatter for this Handler to form
 	out.setFormatter(log_format)
 	# Add the file Handler 'out' to the logger'log'
@@ -66,9 +76,12 @@ def main():
 	log.error("Error!")
 	'''
 
-	# Instantiate a fake log generator
-	log_gen = fake_log_gen(log)
+	# Load the configure json file
+	with open("../config/fake_log_gen.json") as config_file:
+		config = json.load(config_file)
 
+	# Instantiate a fake log generator
+	log_gen = fake_log_gen(log, config)
 	log_gen.run()
 
 
