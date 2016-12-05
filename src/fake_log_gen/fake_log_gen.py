@@ -28,7 +28,7 @@ class fake_log_gen():
 		loop.run_until_complete(
 			asyncio.wait([
 				self.heartbeat_lines(),
-				self.warning_lines()]))
+				self.warn_lines()]))
 		loop.close()
 
 
@@ -39,18 +39,26 @@ class fake_log_gen():
 			yield from asyncio.sleep(int(self.config["heartbeat"]["interval"]))
 	
 	@coroutine
-	def warning_lines(self):
+	def warn_lines(self):
 
-		warn_min = self.config["warning"]["interval"]["min"]
-		warn_max = self.config["warning"]["interval"]["max"]
-		warnings = self.config["warning"]["message"]
+		warn_min = self.config["warn"]["interval"]["min"]
+		warn_max = self.config["warn"]["interval"]["max"]
+		warnings = self.config["warn"]["message"]
 
 		while True:
 			self.log.warning("[client %s] %s", '.'.join(str(random.randint(0, 255)) for i in range(4)), warnings[random.randrange(len(warnings))])
 			yield from asyncio.sleep(random.uniform(warn_min, warn_max))
 
-#	def error_lines(self):
+	@coroutine
+	def error_lines(self):
+	
+		error_min = self.config["error"]["interval"]["min"]
+		error_max = self.config["error"]["interval"]["max"]
+		errors = self.config["error"]["message"]
 
+		while True:
+			self.log.error("[client %s] %s", '.'.join(str(random.randint(0, 255)) for i in range(4)), errors[random.randrange(len(errors))])
+			yield from asyncio.sleep(random.uniform(error_min, error_max))
 
 def main():
 	parser = argparse.ArgumentParser()
