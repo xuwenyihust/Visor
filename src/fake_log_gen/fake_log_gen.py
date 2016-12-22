@@ -19,26 +19,37 @@ from asyncio import coroutine
 
 class fake_log_gen():
 	
-	def __init__(self, log, config):
+	def __init__(self, log, config, log_type):
 		self.log = log
+		self.log_type = log_type
 		# Dict that contains config info
 		self.config = config
 
 	def run(self): 
 		loop = asyncio.get_event_loop()
 		# The event loop
-		loop.run_until_complete(
-			asyncio.wait([
-				self.heartbeat_lines(),
-				self.warn_lines(),
-				self.error_lines()]))
-		loop.close()
+		if self.log_type == 'error':
+			loop.run_until_complete(
+				asyncio.wait([
+					self.heartbeat_lines(),
+					self.warn_lines(),
+					self.error_lines()]
+				)
+			)
+			loop.close()
+		else:
+			loop.run_until_complete(
+				asyncio.wait([
+					self.heartbeat_lines()]
+				)
+			)
+			loop.close()
 
 
 	@coroutine
 	def heartbeat_lines(self):
 		while True:
-			self.log.info("[-] " + self.config["heartbeat"]["message"])
+			self.log.info("[-] [-] " + self.config["heartbeat"]["message"])
 			yield from asyncio.sleep(int(self.config["heartbeat"]["interval"]))
 	
 	@coroutine
@@ -72,7 +83,13 @@ class fake_log_gen():
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("fake_logfile", help="fake logfile")
+	parser.add_argument("form", help="log format")
 	args = parser.parse_args()
+
+	# Identify the log format
+	log_type = args.form
+	if log_type not in ['error', 'access']:
+		print('Argument error.')
 
 	# Instantiate the logger
 	log = logging.getLogger(None)
@@ -98,7 +115,7 @@ def main():
 		config = json.load(config_file)
 
 	# Instantiate a fake log generator
-	log_gen = fake_log_gen(log, config)
+	log_gen = fake_log_gen(log, config, log_type)
 	log_gen.run()
 
 
