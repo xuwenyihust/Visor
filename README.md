@@ -45,7 +45,6 @@ Json format configuration files
             "Do not play overwatch" 
         ]
     },
-... ...
 ```
 
 ## Usage
