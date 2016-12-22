@@ -21,14 +21,17 @@ class fake_log_gen():
 	
 	def __init__(self, log, config):
 		self.log = log
+		# Dict that contains config info
 		self.config = config
 
 	def run(self): 
 		loop = asyncio.get_event_loop()
+		# The event loop
 		loop.run_until_complete(
 			asyncio.wait([
 				self.heartbeat_lines(),
-				self.warn_lines()]))
+				self.warn_lines(),
+				self.error_lines()]))
 		loop.close()
 
 
@@ -46,7 +49,10 @@ class fake_log_gen():
 		warnings = self.config["warn"]["message"]
 
 		while True:
-			self.log.warning("[client %s] %s", '.'.join(str(random.randint(0, 255)) for i in range(4)), warnings[random.randrange(len(warnings))])
+			pid = ''.join(str(random.randint(0, 9)) for i in range(5))
+			tid = ''.join(str(random.randint(0, 9)) for i in range(10))
+			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
+			self.log.warning("[pid %s:tid %s] [client %s] %s", pid, tid, ip, warnings[random.randrange(len(warnings))])
 			yield from asyncio.sleep(random.uniform(warn_min, warn_max))
 
 	@coroutine
@@ -57,7 +63,10 @@ class fake_log_gen():
 		errors = self.config["error"]["message"]
 
 		while True:
-			self.log.error("[client %s] %s", '.'.join(str(random.randint(0, 255)) for i in range(4)), errors[random.randrange(len(errors))])
+			pid = ''.join(str(random.randint(0, 9)) for i in range(5))
+			tid = ''.join(str(random.randint(0, 9)) for i in range(10))
+			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
+			self.log.error("[pid %s:tid %s] [client %s] %s", pid, tid, ip, errors[random.randrange(len(errors))])
 			yield from asyncio.sleep(random.uniform(error_min, error_max))
 
 def main():
@@ -84,7 +93,7 @@ def main():
 	log.error("Error!")
 	'''
 
-	# Load the configure json file
+	# Load the configure json file to a dict
 	with open("../config/fake_log_gen.json") as config_file:
 		config = json.load(config_file)
 

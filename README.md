@@ -24,6 +24,30 @@ Log file monitor.
 |Size of the object returned to the client||
 
 
+## Configuration
+Json format configuration files
+**$HOME/config**
+```json
+{
+    "heartbeat" : { 
+        "interval": "3",
+        "message": "HEARBEAT"
+    },
+    "warn": {
+        "interval": {
+            "min": 5,
+            "max": 30
+            },
+        "message": [
+            "Have no idea what the professor is talking about", 
+            "My phone is out of battery", 
+            "Forgot to bring my wallet with me", 
+            "Do not play overwatch" 
+        ]
+    },
+... ...
+```
+
 ## Usage
 
 ## Example
