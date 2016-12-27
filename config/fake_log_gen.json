@@ -1,7 +1,19 @@
 {
-	"heartbeat" : {
+	"heartbeat": {
 		"interval": "3",
 		"message": "HEARBEAT"
+	},
+	"access": {
+		"interval": {
+			"min": 3,
+			"max": 10
+		},
+		"user_id": [
+			"Frank","Addison","Alden","Baird","Bradley","Bud","Chapman","Curt","Galvin"
+		],
+		"message": [
+			"GET"
+		]
 	},
 	"warn": {
 		"interval": {
