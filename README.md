@@ -1,6 +1,8 @@
 # Visor
 Log file monitor.
 
+Support monitoring of different patterns, Apache access logs and Apache error logs.
+
  *https://xuwenyihust.github.io/Visor/*
 
 ## Log Format
@@ -50,9 +52,22 @@ Json format configuration files
 
 ## Usage
 
+### Log Generation
+
+**Apache Access Log**
+```
+python3.4 ../src/fake_log_gen/fake_log_gen.py fake_access_file.log access
+```
+
+**Apache Error Log**
+```
+python3.4 ../src/fake_log_gen/fake_log_gen.py fake_error_file.log error
+```
+
 ## Example
 
 ## Requirements
+* Python 3.4
 
 ## Resources
 * [Apache Log Files](https://httpd.apache.org/docs/1.3/logs.html)
