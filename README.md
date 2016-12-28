@@ -1,9 +1,16 @@
 # Visor
 Log file monitor.
 
+ *https://xuwenyihust.github.io/Visor/*
+
+Real-time monitoring of log files.
+
+Can parse multiple log files at the same time.
+
 Support monitoring of different patterns, Apache access logs and Apache error logs.
 
- *https://xuwenyihust.github.io/Visor/*
+Can generate fake log files for analytics.
+
 
 ## Log Format
 ### Apache Log
@@ -63,6 +70,10 @@ python3.4 ../src/fake_log_gen/fake_log_gen.py fake_access_file.log access
 ```
 python3.4 ../src/fake_log_gen/fake_log_gen.py fake_error_file.log error
 ```
+
+### Machine Learning Model Training
+
+### Log Analysis
 
 ## Example
 
