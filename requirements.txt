@@ -1,1 +1,2 @@
-pymongo==2.1.1
+pymongo==2.6.3
+numpy==1.8.2
