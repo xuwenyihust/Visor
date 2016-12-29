@@ -30,11 +30,25 @@ class fake_log_gen(object):
 
 class fake_access_gen(fake_log_gen):
 
+	def __init__(self, log, config, mode):
+		self.log = log
+		self.mode = mode
+		# Dict that contains config info
+		self.config = config
+
+		self.access_min = self.config["access"]["interval"]["min"]
+		self.access_max = self.config["access"]["interval"]["max"]
+		self.user_ids = self.config["access"]["user_id"]
+		self.methods = self.config["access"]["method"]
+		self.resources = self.config["access"]["resource"]
+		self.codes = self.config["access"]["code"]
+		self.versions = self.config["access"]["version"]
+
 	def run(self):
 		loop = asyncio.get_event_loop()
 		loop.run_until_complete(
 			asyncio.wait([
-				#self.heartbeat_lines(),
+				self.heartbeat_lines(),
 				self.access_lines()]
 			)
 		)
@@ -50,24 +64,20 @@ class fake_access_gen(fake_log_gen):
 
 	@coroutine
 	def access_lines(self):
-
-		access_min = self.config["access"]["interval"]["min"]
-		access_max = self.config["access"]["interval"]["max"]
-
-		user_ids = self.config["access"]["user_id"]
-		methods = self.config["access"]["method"]
-		resources = self.config["access"]["resource"]
-		codes = self.config["access"]["code"]
-		versions = self.config["access"]["version"]
-
 		while True:
 			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
 			user_identifier = 'user-identifier'
-			user_id = user_ids[random.randint(0,len(user_ids)-1)]
+			user_id = self.user_ids[random.randint(0,len(self.user_ids)-1)]
 			t = datetime.datetime.now().strftime('%d/%b/%Y:%H:%M:%S -0700')
-			msg = methods[random.randint(0, len(methods)-1)]+" "+resources[random.randint(0, len(resources)-1)]+" "+versions[random.randint(0, len(versions)-1)]
-			self.log.info('%s %s %s [%s] "%s"', ip, user_identifier, user_id, t, msg)
-			yield from asyncio.sleep(random.uniform(access_min, access_max))
+
+			method = self.methods[random.randint(0, len(self.methods)-1)]
+			resource = self.resources[random.randint(0, len(self.resources)-1)]
+			version = self.versions[random.randint(0, len(self.versions)-1)]
+			msg = method + " " + resource + " " + version
+			code = self.codes[random.randint(0, len(self.codes)-1)]
+			size = random.randint(1024, 10240)
+			self.log.info('%s %s %s [%s] "%s" %s %s', ip, user_identifier, user_id, t, msg, code, size)
+			yield from asyncio.sleep(random.uniform(self.access_min, self.access_max))
 
 
 class fake_error_gen(fake_log_gen):
