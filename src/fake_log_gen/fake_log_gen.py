@@ -34,7 +34,7 @@ class fake_access_gen(fake_log_gen):
 		loop = asyncio.get_event_loop()
 		loop.run_until_complete(
 			asyncio.wait([
-				self.heartbeat_lines(),
+				#self.heartbeat_lines(),
 				self.access_lines()]
 			)
 		)
@@ -55,14 +55,17 @@ class fake_access_gen(fake_log_gen):
 		access_max = self.config["access"]["interval"]["max"]
 
 		user_ids = self.config["access"]["user_id"]
-		msgs = self.config["access"]["message"]
+		methods = self.config["access"]["method"]
+		resources = self.config["access"]["resource"]
+		codes = self.config["access"]["code"]
+		versions = self.config["access"]["version"]
 
 		while True:
 			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
 			user_identifier = 'user-identifier'
 			user_id = user_ids[random.randint(0,len(user_ids)-1)]
 			t = datetime.datetime.now().strftime('%d/%b/%Y:%H:%M:%S -0700')
-			msg = msgs[random.randint(0, len(msgs)-1)]
+			msg = methods[random.randint(0, len(methods)-1)]+" "+resources[random.randint(0, len(resources)-1)]+" "+versions[random.randint(0, len(versions)-1)]
 			self.log.info('%s %s %s [%s] "%s"', ip, user_identifier, user_id, t, msg)
 			yield from asyncio.sleep(random.uniform(access_min, access_max))
 

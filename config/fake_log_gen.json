@@ -11,8 +11,17 @@
 		"user_id": [
 			"Frank","Addison","Alden","Baird","Bradley","Bud","Chapman","Curt","Galvin"
 		],
-		"message": [
-			"GET"
+		"method": [
+			"GET", "POST", "PUT", "DELETE"
+		],
+		"code": [
+			"200", "301"
+		],
+		"resource": [
+			"/image/kitty.png", "/doc/readme.txt", "/doc/charge.txt", "/app/main", "/list"
+		],
+		"version": [
+			"HTTP/1.1", "HTTP/2.0"
 		]
 	},
 	"warn": {
