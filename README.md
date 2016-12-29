@@ -11,7 +11,7 @@ Support monitoring of different log patterns, Apache access logs and Apache erro
 Can generate fake log files for analytics.
 
 ## Documentation
-The Visor's documentation is hosted on GitBook at https://xuwenyihust.gitbooks.io/visor-real-time-log-monitor/content/ 
+The Visor's documentation is hosted on GitBook at https://xuwenyihust.gitbooks.io/visor-real-time-log-monitor/content/. 
 
 ## Log Format
 ### Apache Log
