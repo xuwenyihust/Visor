@@ -56,6 +56,7 @@ Json format configuration files
         ]
     },
 ```
+### Configure log contribution
 
 ## Usage
 
