@@ -1,16 +1,17 @@
 # Visor
-Log file monitor.
 
- *https://xuwenyihust.github.io/Visor/*
+*https://xuwenyihust.github.io/Visor/*
 
-Real-time monitoring of log files.
+A real-time log monitor.
 
-Can parse multiple log files at the same time.
+Can analyze multiple log files at the same time.
 
-Support monitoring of different patterns, Apache access logs and Apache error logs.
+Support monitoring of different log patterns, Apache access logs and Apache error logs.
 
 Can generate fake log files for analytics.
 
+## Documentation
+The Visor's documentation is hosted on GitBook at https://xuwenyihust.gitbooks.io/visor-real-time-log-monitor/content/ 
 
 ## Log Format
 ### Apache Log
@@ -35,8 +36,7 @@ Can generate fake log files for analytics.
 
 
 ## Configuration
-Json format configuration files
-**$HOME/config**
+Use JSON for configuration files, stored at **$HOME/config**. Here are part of the configurations.
 ```json
 {
     "heartbeat" : { 
@@ -54,7 +54,7 @@ Json format configuration files
             "Forgot to bring my wallet with me", 
             "Do not play overwatch" 
         ]
-    },
+    }
 ```
 ### Configure log contribution
 
