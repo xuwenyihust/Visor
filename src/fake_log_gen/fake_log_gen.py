@@ -81,7 +81,24 @@ class fake_access_gen(fake_log_gen):
 
 
 class fake_error_gen(fake_log_gen):
+
+	def __init__(self, log, config, mode):
+		self.log = log
+		self.mode = mode
+		# Dict that contains config info
+		self.config = config
 	
+		self.access_min = self.config["access"]["interval"]["min"]
+		self.access_max = self.config["access"]["interval"]["max"]
+
+		self.warn_min = self.config["warn"]["interval"]["min"]
+		self.warn_max = self.config["warn"]["interval"]["max"]
+		self.warnings = self.config["warn"]["message"]
+
+		self.error_min = self.config["error"]["interval"]["min"]
+		self.error_max = self.config["error"]["interval"]["max"]
+		self.errors = self.config["error"]["message"]
+
 	def run(self): 
 		loop = asyncio.get_event_loop()
 		# The event loop
@@ -101,45 +118,31 @@ class fake_error_gen(fake_log_gen):
 			yield from asyncio.sleep(int(self.config["heartbeat"]["interval"]))
 
 	@coroutine
-	def access_lines(self):
-
-		access_min = self.config["access"]["interval"]["min"]
-		access_max = self.config["access"]["interval"]["max"]		
-
+	def access_lines(self):	
 		while True:
 			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
 			#user_identifier = 
 			#user_id =
 			self.log.info("%s", ip)
-			yield from asyncio.sleep(random.uniform(access_min, access_max)) 
+			yield from asyncio.sleep(random.uniform(self.access_min, self.access_max)) 
 	
 	@coroutine
 	def warn_lines(self):
-
-		warn_min = self.config["warn"]["interval"]["min"]
-		warn_max = self.config["warn"]["interval"]["max"]
-		warnings = self.config["warn"]["message"]
-
 		while True:
 			pid = ''.join(str(random.randint(0, 9)) for i in range(5))
 			tid = ''.join(str(random.randint(0, 9)) for i in range(10))
 			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
-			self.log.warning("[pid %s:tid %s] [client %s] %s", pid, tid, ip, warnings[random.randrange(len(warnings))])
-			yield from asyncio.sleep(random.uniform(warn_min, warn_max))
+			self.log.warning("[pid %s:tid %s] [client %s] %s", pid, tid, ip, self.warnings[random.randrange(len(self.warnings))])
+			yield from asyncio.sleep(random.uniform(self.warn_min, self.warn_max))
 
 	@coroutine
 	def error_lines(self):
-	
-		error_min = self.config["error"]["interval"]["min"]
-		error_max = self.config["error"]["interval"]["max"]
-		errors = self.config["error"]["message"]
-
 		while True:
 			pid = ''.join(str(random.randint(0, 9)) for i in range(5))
 			tid = ''.join(str(random.randint(0, 9)) for i in range(10))
 			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
-			self.log.error("[pid %s:tid %s] [client %s] %s", pid, tid, ip, errors[random.randrange(len(errors))])
-			yield from asyncio.sleep(random.uniform(error_min, error_max))
+			self.log.error("[pid %s:tid %s] [client %s] %s", pid, tid, ip, self.errors[random.randrange(len(self.errors))])
+			yield from asyncio.sleep(random.uniform(self.error_min, self.error_max))
 
 def main():
 	parser = argparse.ArgumentParser()
