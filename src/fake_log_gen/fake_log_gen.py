@@ -8,6 +8,7 @@ import argparse
 import asyncio
 import datetime
 from asyncio import coroutine
+import numpy
 
 
 class fake_log_gen(object):
@@ -40,15 +41,17 @@ class fake_access_gen(fake_log_gen):
 		self.access_max = self.config["access"]["interval"]["max"]
 		self.user_ids = self.config["access"]["user_id"]
 		self.methods = self.config["access"]["method"]
+		self.methods_dist = self.config["access"]["method_dist"]
 		self.resources = self.config["access"]["resource"]
 		self.codes = self.config["access"]["code"]
+		self.codes_dist = self.config["access"]["code_dist"]
 		self.versions = self.config["access"]["version"]
 
 	def run(self):
 		loop = asyncio.get_event_loop()
 		loop.run_until_complete(
 			asyncio.wait([
-				self.heartbeat_lines(),
+				#self.heartbeat_lines(),
 				self.access_lines()]
 			)
 		)
@@ -70,11 +73,11 @@ class fake_access_gen(fake_log_gen):
 			user_id = self.user_ids[random.randint(0,len(self.user_ids)-1)]
 			t = datetime.datetime.now().strftime('%d/%b/%Y:%H:%M:%S -0700')
 
-			method = self.methods[random.randint(0, len(self.methods)-1)]
+			method = numpy.random.choice(self.methods, p=self.methods_dist)
 			resource = self.resources[random.randint(0, len(self.resources)-1)]
 			version = self.versions[random.randint(0, len(self.versions)-1)]
 			msg = method + " " + resource + " " + version
-			code = self.codes[random.randint(0, len(self.codes)-1)]
+			code = numpy.random.choice(self.codes, p=self.codes_dist)
 			size = random.randint(1024, 10240)
 			self.log.info('%s %s %s [%s] "%s" %s %s', ip, user_identifier, user_id, t, msg, code, size)
 			yield from asyncio.sleep(random.uniform(self.access_min, self.access_max))
