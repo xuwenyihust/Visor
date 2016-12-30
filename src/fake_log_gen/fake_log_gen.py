@@ -66,7 +66,7 @@ class fake_access_gen(fake_log_gen):
 	def access_lines(self):
 		while True:
 			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
-			user_identifier = 'user-identifier'
+			user_identifier = '-'
 			user_id = self.user_ids[random.randint(0,len(self.user_ids)-1)]
 			t = datetime.datetime.now().strftime('%d/%b/%Y:%H:%M:%S -0700')
 
@@ -146,21 +146,21 @@ class fake_error_gen(fake_log_gen):
 
 def main():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("fake_logfile", help="fake logfile")
-	parser.add_argument("mode", help="log mode")
+	parser.add_argument("-o", help="fake logfile")
+	parser.add_argument("-m", help="log mode")
 	args = parser.parse_args()
 
 	# Identify the log format
-	mode = args.mode
+	mode = args.m
 	if mode not in ['error', 'access']:
 		print('Argument error.')
 
 	# Instantiate the logger
-	log = logging.getLogger(None)
+	log = logging.getLogger('Gen')
 	# Set the level
 	logging.basicConfig(level=logging.INFO)
 	# Instantiate a file Handler
-	out = logging.FileHandler(args.fake_logfile)
+	out = logging.FileHandler(args.o)
 	# Instantiate a Formatter
 	# Format the time string
 	if mode == 'error':
