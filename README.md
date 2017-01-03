@@ -36,6 +36,10 @@ The Visor's documentation is hosted on GitBook at https://xuwenyihust.gitbooks.i
 
 
 ## Configuration
+### $PYTHONHOME
+Add the root directory to `$PYTHONHOME`.
+
+### Configuration Files
 Use JSON for configuration files, stored at **$HOME/config**. Here are part of the configurations.
 ```json
 {

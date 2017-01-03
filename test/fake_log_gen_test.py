@@ -1,4 +1,5 @@
 import unittest
+from src import fake_log_gen
 
 class fake_log_gen_test(unittest.TestCase):
 
