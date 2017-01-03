@@ -51,8 +51,8 @@ class fake_access_gen(fake_log_gen):
 		loop = asyncio.get_event_loop()
 		loop.run_until_complete(
 			asyncio.wait([
-				#self.heartbeat_lines(),
-				self.access_lines()]
+				self.heartbeat_lines(),
+				self.access_lines()]	
 			)
 		)
 		loop.close()
