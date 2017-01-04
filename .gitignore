@@ -1,5 +1,6 @@
 script/fake_logfile
 src/__pycache__/
+src/fake_log_gen/__pycache__/
 src/fake_log_gen/.fake_log_gen.py.swp
 src/fake_log_gen/.fake_log_generator.py.swp
 script/fake_access_file.log
