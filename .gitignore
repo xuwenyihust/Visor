@@ -3,6 +3,8 @@ src/__pycache__/
 src/fake_log_gen/__pycache__/
 src/fake_log_gen/.fake_log_gen.py.swp
 src/fake_log_gen/.fake_log_generator.py.swp
+src/socket/receive_test.py
+src/socket/stream_test.py
 script/fake_access_file.log
 script/fake_error_file.log
 test/.ipynb_checkpoints/
