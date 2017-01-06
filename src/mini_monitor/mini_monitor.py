@@ -7,6 +7,7 @@ class mini_monitor(object):
 
 	def __init__(self, logfile):
 		self.logfile = logfile
+		self.error_cnt = 0
 
 	def analyze(self):
 		with open(self.logfile, 'r') as f:
@@ -36,8 +37,18 @@ class mini_monitor(object):
 	def on_error_log(self, line):
 		fields = line.split(']')
 		fields = [x.strip(' [') for x in fields]
-		print(fields)
+	
+		lv = fields[1]
+
+		if lv == 'ERROR':
+			self.error_report(fields)		
+
 		return
+
+	def error_report(self, fields):
+		self.error_cnt += 1
+		print('Total num of errors: ' + str(self.error_cnt))
+		print('Error detail: ' + fields[-1])
 
 
 def main():
