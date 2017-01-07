@@ -3,7 +3,7 @@
 [![in progress](https://img.shields.io/badge/in%20progress-3-orange.svg)]
 
 <img src="https://raw.githubusercontent.com/xuwenyihust/Visor/master/img/Visor.JPG" align="right" />
-# Visor: Real-time Log Monitor - [READ the Docs](https://goo.gl/F0rADZ)
+# Visor: Real-time Log Monitor - [Docs](https://goo.gl/F0rADZ)
 
 Web page: *https://xuwenyihust.github.io/Visor/*
 
