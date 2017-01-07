@@ -34,8 +34,8 @@ The Visor's documentation is hosted on GitBook at https://xuwenyihust.gitbooks.i
 |UserID of the client|Process ID|
 |The time that the request was received|Client Address|
 |Request line from the client|Detailed error message|
-|HTTP status code||
-|Size of the object returned to the client||
+|HTTP status code|N/A|
+|Size of the object returned to the client|N/A|
 
 
 ## Configuration
