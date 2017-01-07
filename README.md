@@ -7,7 +7,7 @@
 
 Web page: *https://xuwenyihust.github.io/Visor/*
 
-Visor is a real-time log monitor that support different log patterns, currently Apache access log format and Apache error log format.
+Visor is a real-time log monitor that supports different log patterns, currently Apache access log format and Apache error log format.
 
 Visor can monitor multiple log sources at the same time, and in realtime with the help of Apache Kafka and Spark Streaming.
 
@@ -19,7 +19,19 @@ Also, if you want to see how Visor works, or have your own monitor to test, but 
 The Visor's documentation is hosted on GitBook at https://xuwenyihust.gitbooks.io/visor-real-time-log-monitor/content/. 
 
 ## Overview
-### Log Format
+Visor is designed to be highly modular. Easly to be configured, and extended if you want. 
+
+The whole platform is composed of several components: 
+* Fake log generator
+* Log import system
+* Log analysis system
+* Alerting system
+* Output Storage
+* Dashboard
+
+### Fake Log Generator
+
+Currently we support generating and analyzing 2 log formats: Apache access log format and Apache error log format.
 
 |Access Log Fields|Error Log Fields|
 |-----|-----|
@@ -31,16 +43,22 @@ The Visor's documentation is hosted on GitBook at https://xuwenyihust.gitbooks.i
 |HTTP status code|N/A|
 |Size of the object returned to the client|N/A|
 
-### Data Import
-Support 3 data import modes:
+The generated log lines will be stored into files by default, you can also stream them into the analysis part through TCP sockets or Apache Kafka.
+
+### Log Import
+Support 3 log import modes:
 * Direct file import
 * TCP socket transmission
 * Apache Kafka streaming
 
 ### Data Analysis
 The platform offers 2 different analysis application:
-* Mini-monitor:		Pure Python, simple prototype, used with direct file import method
-* Spark Streaming:	Realize real-time when used with Apache Kafka
+* Mini-monitor
+* Spark Streaming
+
+The mini-monitor is a simple prototype, written in pure Python, works with the direct file import method.
+
+The application implemented with Spark Streaming can realize real-time when used with Apache Kafka.
 
 ## Configuration
 ### $PYTHONHOME
