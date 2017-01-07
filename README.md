@@ -56,7 +56,7 @@ The platform offers 2 different analysis application:
 * Mini-monitor
 * Spark Streaming
 
-The mini-monitor is a simple prototype, written in pure Python, works with the direct file import method.
+The mini-monitor is a simple prototype, written in pure Python. It can only work with the direct file import method, and write the analysis results into a file.
 
 The application implemented with Spark Streaming can realize real-time when used with Apache Kafka.
 
@@ -65,7 +65,9 @@ The application implemented with Spark Streaming can realize real-time when used
 Add the root directory to `$PYTHONHOME`.
 
 ### Configuration Files
-Use JSON for configuration files, stored at **$HOME/config**. Here are part of the configurations.
+Use JSON for configuration files, all stored under **$HOME/config**. 
+
+An example of the configuration files:
 ```json
 {
     "heartbeat" : { 
@@ -87,18 +89,22 @@ Use JSON for configuration files, stored at **$HOME/config**. Here are part of t
 ```
 
 ## Usage
-
-### Log Generation
-
-**Apache Access Log**
+### Fake Log Generator
+**Apache access log generation**
 ```
-python3.4 ../src/fake_log_gen/fake_log_gen.py fake_access_file.log access
+python3.4 $Visor_HOME/src/fake_log_gen/fake_log_gen.py -m access -o fake_access_file.log
 ```
 
-**Apache Error Log**
+**Apache error log generation**
 ```
-python3.4 ../src/fake_log_gen/fake_log_gen.py fake_error_file.log error
+python3.4 $Visor_HOME/src/fake_log_gen/fake_log_gen.py -m error -o fake_error_file.log
 ```
+### Mini-Monitor
+```
+python3.4 $Visor_HOME/src/mini_monitor/mini_monitor.py -i fake_error_file.log
+```
+
+### TCP Socket Transmission
 
 ## Requirements
 * Python 3.4
