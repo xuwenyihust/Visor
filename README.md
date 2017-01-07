@@ -2,7 +2,7 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 [![in progress](https://img.shields.io/badge/in%20progress-3-orange.svg)](https://github.com/xuwenyihust/Visor/projects/1)
 # Visor: Real-time Log Monitor - [READ the Docs](https://goo.gl/F0rADZ)
-
+![](https://raw.githubusercontent.com/xuwenyihust/Visor/master/img/Visor.JPG)
 Web page: *https://xuwenyihust.github.io/Visor/*
 
 A real-time log monitor that support different log patterns: Apache access logs and Apache error logs.
@@ -14,13 +14,13 @@ Has its own fake log generator to generate likely log files for analytics.
 ## Documentation
 The Visor's documentation is hosted on GitBook at https://xuwenyihust.gitbooks.io/visor-real-time-log-monitor/content/. 
 
-## Log Format
-### Apache Log
+## Overview
+### Log Format
 
-**Access Log**
+**Apache Access Log**
 > 127.0.0.1 user-identifier frank [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326
 
-**Error Log**
+**Apache Error Log**
 > [Wed Oct 11 14:32:52 2000] [ERROR] [pid 35708:tid 4328636416] [client 127.0.0.1] client denied by server configuration: /export/home/live/ap/htdocs/test
 
 **Fields**
@@ -61,7 +61,6 @@ Use JSON for configuration files, stored at **$HOME/config**. Here are part of t
         ]
     }
 ```
-### Configure log contribution
 
 ## Usage
 
@@ -76,6 +75,8 @@ python3.4 ../src/fake_log_gen/fake_log_gen.py fake_access_file.log access
 ```
 python3.4 ../src/fake_log_gen/fake_log_gen.py fake_error_file.log error
 ```
+
+### Log Import
 
 ### Machine Learning Model Training
 
