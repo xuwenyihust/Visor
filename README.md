@@ -7,25 +7,19 @@
 
 Web page: *https://xuwenyihust.github.io/Visor/*
 
-A real-time log monitor that support different log patterns: Apache access logs and Apache error logs.
+Visor is a real-time log monitor that support different log patterns, currently Apache access log format and Apache error log format.
 
-Monitor multiple log sources, done in realtime using Spark Streaming.
+Visor can monitor multiple log sources at the same time, and in realtime with the help of Apache Kafka and Spark Streaming.
 
-Has its own fake log generator to generate likely log files for analytics.
+This can be a simple and relative complete example of real-time log monitor, if you have a lot of continously generated logs to be analyzed, or you want to learn how to build a log monitor, Visor can be a good choice.
+
+Also, if you want to see how Visor works, or have your own monitor to test, but you don't have access to real logs, Visor has its own fake log generator to generate likely log files for analytics.
 
 ## Documentation
 The Visor's documentation is hosted on GitBook at https://xuwenyihust.gitbooks.io/visor-real-time-log-monitor/content/. 
 
 ## Overview
 ### Log Format
-
-**Apache Access Log**
-> 127.0.0.1 user-identifier frank [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326
-
-**Apache Error Log**
-> [Wed Oct 11 14:32:52 2000] [ERROR] [pid 35708:tid 4328636416] [client 127.0.0.1] client denied by server configuration: /export/home/live/ap/htdocs/test
-
-**Fields**
 
 |Access Log Fields|Error Log Fields|
 |-----|-----|
@@ -37,6 +31,16 @@ The Visor's documentation is hosted on GitBook at https://xuwenyihust.gitbooks.i
 |HTTP status code|N/A|
 |Size of the object returned to the client|N/A|
 
+### Data Import
+Support 3 data import modes:
+* Direct file import
+* TCP socket transmission
+* Apache Kafka streaming
+
+### Data Analysis
+The platform offers 2 different analysis application:
+* Mini-monitor:		Pure Python, simple prototype, used with direct file import method
+* Spark Streaming:	Realize real-time when used with Apache Kafka
 
 ## Configuration
 ### $PYTHONHOME
@@ -77,14 +81,6 @@ python3.4 ../src/fake_log_gen/fake_log_gen.py fake_access_file.log access
 ```
 python3.4 ../src/fake_log_gen/fake_log_gen.py fake_error_file.log error
 ```
-
-### Log Import
-
-### Machine Learning Model Training
-
-### Log Analysis
-
-## Example
 
 ## Requirements
 * Python 3.4
