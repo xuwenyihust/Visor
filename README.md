@@ -1,6 +1,6 @@
 ![Python 3.4](https://img.shields.io/badge/python-3.4-green.svg)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
-[![in progress](https://img.shields.io/badge/in%20progress-3-orange.svg)]
+[![in progress](https://img.shields.io/badge/in%20progress-3-orange.svg)](https://github.com/xuwenyihust/Visor/projects/1)
 
 <img src="https://raw.githubusercontent.com/xuwenyihust/Visor/master/img/Visor.JPG" align="right" />
 # Visor: Real-time Log Monitor - [Docs](https://goo.gl/F0rADZ)
