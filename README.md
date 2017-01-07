@@ -1,14 +1,12 @@
-# Visor
+# Visor: Real-time Log Monitor - [READ the Docs](https://goo.gl/F0rADZ)
 
-*https://xuwenyihust.github.io/Visor/*
+Web page: *https://xuwenyihust.github.io/Visor/*
 
-A real-time log monitor.
+A real-time log monitor that support different log patterns: Apache access logs and Apache error logs.
 
-Can analyze multiple log files at the same time.
+Monitor multiple log sources, done in realtime using Spark Streaming.
 
-Support monitoring of different log patterns, Apache access logs and Apache error logs.
-
-Can generate fake log files for analytics.
+Has its own fake log generator to generate likely log files for analytics.
 
 ## Documentation
 The Visor's documentation is hosted on GitBook at https://xuwenyihust.gitbooks.io/visor-real-time-log-monitor/content/. 
