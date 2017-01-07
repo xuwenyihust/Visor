@@ -14,8 +14,8 @@ import numpy
 
 class fake_access_stream(fake_log_gen.fake_access_gen):
 
-	def __init__(self, log, config, mode):
-		super(fake_access_stream, self).__init__(log, config, mode)
+	def run(self):
+		#super(fake_access_stream, self).__init__(log, config, mode)
 		# Create a TCP/IP socket object
 		self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -35,7 +35,9 @@ class fake_access_stream(fake_log_gen.fake_access_gen):
 		# Establish connection with client
 		self.client, self.addr = self.s.accept()
 		print('>>> Received request from ' + str(self.addr))
-	
+
+		super(fake_access_stream, self).run()
+
 	@coroutine
 	def heartbeat_lines(self):
 		while True:
@@ -67,27 +69,30 @@ class fake_access_stream(fake_log_gen.fake_access_gen):
 	
 
 class fake_error_stream(fake_log_gen.fake_error_gen):
-	def __init__(self, log, config, mode):
-		super(fake_error_stream, self).__init__(log, config, mode)
+
+	def run(self):
+		#super(fake_error_stream, self).__init__(log, config, mode)
 		# Create a TCP/IP socket object
 		self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 		# Get local machine name
 		host = socket.gethostbyname(socket.gethostname())
-		print('>>> Host Name:\t%s' % str(host))
+		print('>>> Server Host Name:\t%s' % str(host))
 		# Reserve a hst for your service
 		port = 5555
 		server_addr = (host, port)
 		# Bind the socket with the server address
 		self.s.bind(server_addr)
-		print('>>> Listening on port:\t%s' % str(port))
+		print('>>> Server is listening on port:\t%s' % str(port))
 		# Calling listen() puts the socket into server mode
 		self.s.listen(5)
-		print('>>> Waiting for client connection')
+		print('>>> Server is waiting for client connection')
 		# accept() waits for an incoming connection
 		# Establish connection with client
 		self.client, self.addr = self.s.accept()
-		print('>>> Received request from ' + str(self.addr))
+		print('>>> Server received request from ' + str(self.addr))
+
+		super(fake_error_stream, self).run()
     
 	@coroutine
 	def heartbeat_lines(self):
