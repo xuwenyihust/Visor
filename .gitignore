@@ -5,6 +5,9 @@ src/fake_log_gen/.fake_log_gen.py.swp
 src/fake_log_gen/.fake_log_generator.py.swp
 src/socket/receive_test.py
 src/socket/stream_test.py
+src/socket/__pycache__/
+src/socket/fake_access_file.log
 script/fake_access_file.log
 script/fake_error_file.log
 test/.ipynb_checkpoints/
+test/fake_access_stream_test.log
