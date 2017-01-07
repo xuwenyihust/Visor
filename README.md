@@ -1,8 +1,10 @@
 ![Python 3.4](https://img.shields.io/badge/python-3.4-green.svg)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
+[![in progress](https://img.shields.io/badge/in%20progress-3-orange.svg)]
+
 <img src="https://raw.githubusercontent.com/xuwenyihust/Visor/master/img/Visor.JPG" align="right" />
 # Visor: Real-time Log Monitor - [READ the Docs](https://goo.gl/F0rADZ)
-![](https://raw.githubusercontent.com/xuwenyihust/Visor/master/img/Visor.JPG)
+
 Web page: *https://xuwenyihust.github.io/Visor/*
 
 A real-time log monitor that support different log patterns: Apache access logs and Apache error logs.
