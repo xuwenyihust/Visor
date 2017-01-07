@@ -44,7 +44,7 @@ class fake_access_stream(fake_log_gen.fake_access_gen):
 			t = datetime.datetime.now().strftime('%d/%b/%Y:%H:%M:%S -0700')	
 			data = '- - - [%s] "%s" - -' % (t, self.config["heartbeat"]["message"])
 			self.log.info(data)
-			self.client.send(data.encode())	
+			self.client.send((data+'\n').encode())	
 				
 			yield from asyncio.sleep(int(self.config["heartbeat"]["interval"]))
 
@@ -64,7 +64,7 @@ class fake_access_stream(fake_log_gen.fake_access_gen):
 			size = random.randint(1024, 10240)
 			data = '%s %s %s [%s] "%s" %s %s' % (ip, user_identifier, user_id, t, msg, code, size)
 			self.log.info(data)
-			self.client.send(data.encode())
+			self.client.send((data+'\n').encode())
 			yield from asyncio.sleep(random.uniform(self.access_min, self.access_max))
 	
 
@@ -99,7 +99,7 @@ class fake_error_stream(fake_log_gen.fake_error_gen):
 		while True:
 			data = "[-] [-] " + self.config["heartbeat"]["message"]
 			self.log.info(data)
-			self.client.send(data.encode())
+			self.client.send((data+'\n').encode())
 			yield from asyncio.sleep(int(self.config["heartbeat"]["interval"]))
 
 	@coroutine
@@ -115,7 +115,7 @@ class fake_error_stream(fake_log_gen.fake_error_gen):
 			msg = "[pid %s:tid %s] [client %s] %s" % (pid, tid, ip, self.warnings[random.randrange(len(self.warnings))])
 			data = asctime + level_name + msg
 			self.log.warning(data)
-			self.client.send(data.encode())
+			self.client.send((data+'\n').encode())
 			yield from asyncio.sleep(random.uniform(self.warn_min, self.warn_max))
 
 	@coroutine
@@ -130,7 +130,7 @@ class fake_error_stream(fake_log_gen.fake_error_gen):
 			msg = "[pid %s:tid %s] [client %s] %s" % (pid, tid, ip, self.errors[random.randrange(len(self.errors))])
 			data = asctime + level_name + msg
 			self.log.error(data)
-			self.client.send(data.encode())
+			self.client.send((data+'\n').encode())
 			yield from asyncio.sleep(random.uniform(self.error_min, self.error_max))
 
 def main():
