@@ -90,12 +90,12 @@ An example of the configuration files:
 
 ## Usage
 ### Fake Log Generator
-**Apache access log generation**
+* Generate apache access log
 ```
 python3.4 $Visor_HOME/src/fake_log_gen/fake_log_gen.py -m access -o fake_access_file.log
 ```
 
-**Apache error log generation**
+* Generate apache error log
 ```
 python3.4 $Visor_HOME/src/fake_log_gen/fake_log_gen.py -m error -o fake_error_file.log
 ```
@@ -105,6 +105,15 @@ python3.4 $Visor_HOME/src/mini_monitor/mini_monitor.py -i fake_error_file.log
 ```
 
 ### TCP Socket Transmission
+* Stream Apache access log
+```
+python3.4 $Visor_HOME/src/socket/fake_log_stream.py -m access
+```
+
+* Stream apache error log
+```
+python3.4 $Visor_HOME/src/socket/fake_log_stream.py -m error
+```
 
 ## Requirements
 * Python 3.4
