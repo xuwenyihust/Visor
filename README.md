@@ -3,7 +3,7 @@
 [![in progress](https://img.shields.io/badge/in%20progress-3-orange.svg)](https://github.com/xuwenyihust/Visor/projects/1)
 
 <img src="https://raw.githubusercontent.com/xuwenyihust/Visor/master/img/Visor.JPG" align="right" />
-# Visor: Real-time Log Monitor - [Docs](https://goo.gl/F0rADZ)
+# Visor: Real-time Log Monitor - [Read The Docs](https://goo.gl/F0rADZ)
 
 Web page: *https://xuwenyihust.github.io/Visor/*
 
@@ -52,17 +52,17 @@ Support 3 log import modes:
 * Apache Kafka streaming
 
 ### Data Analysis
-The platform offers 2 different analysis application:
+The platform also provides 3 different analysis application:
 * Mini-monitor
-* Spark Streaming
+* Spark-monitor
 
 The mini-monitor is a simple prototype, written in pure Python. It can only work with the direct file import method, and write the analysis results into a file.
 
 The application implemented with Spark Streaming can realize real-time when used with Apache Kafka.
 
 ## Configuration
-### $PYTHONHOME
-Add the root directory to `$PYTHONHOME`.
+### $PYTHONPATH
+Add the root directory to `$PYTHONPATH`.
 
 ### Configuration Files
 Use JSON for configuration files, all stored under **$HOME/config**. 
