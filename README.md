@@ -115,9 +115,6 @@ python3.4 $Visor_HOME/src/socket/fake_log_stream.py -m access
 python3.4 $Visor_HOME/src/socket/fake_log_stream.py -m error
 ```
 
-## Requirements
-* Python 3.4
-
 ## Resources
 * [Apache Log Files](https://httpd.apache.org/docs/1.3/logs.html)
 

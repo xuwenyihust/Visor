@@ -1,6 +1,6 @@
 # Fake log files generator
 
-
+import os
 import random
 import json
 import logging
@@ -181,7 +181,7 @@ def main():
 	'''
 
 	# Load the configure json file to a dict
-	with open("../config/fake_log_gen.json") as config_file:
+	with open(os.environ['VISORHOME']+"/config/fake_log_gen.json") as config_file:
 		config = json.load(config_file)
 
 	# Instantiate a fake log generator
