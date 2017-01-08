@@ -51,7 +51,7 @@ Support 3 log import modes:
 * TCP socket transmission
 * Apache Kafka streaming
 
-### Data Analysis
+### Log Analysis
 The platform also provides 3 different analysis application:
 * Mini-monitor
 * Spark-monitor
@@ -61,8 +61,8 @@ The mini-monitor is a simple prototype, written in pure Python. It can only work
 The application implemented with Spark Streaming can realize real-time when used with Apache Kafka.
 
 ## Configuration
-### $PYTHONPATH
-Add the root directory to `$PYTHONPATH`.
+### Environment Variables
+Add the application's root directory to both `$PYTHONPATH` and `$VISORHOME`.
 
 ### Configuration Files
 Use JSON for configuration files, all stored under **$HOME/config**. 
