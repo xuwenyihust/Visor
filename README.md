@@ -89,34 +89,59 @@ An example of the configuration files:
 ```
 
 ## Usage
-### Fake Log Generator
-* Generate apache access log
+
+### Direct File Import + Mini-Monitor
+
+* Run fake log generator:
+
 ```
-python3.4 $Visor_HOME/src/fake_log_gen/fake_log_gen.py -m access -o fake_access_file.log
+python3.4 $VISORHOME/src/fake_log_gen/fake_log_gen.py -m [access/error] -o [logfile]
 ```
 
-* Generate apache error log
+* Run Mini-Monitor to analyze generated log files:
 ```
-python3.4 $Visor_HOME/src/fake_log_gen/fake_log_gen.py -m error -o fake_error_file.log
-```
-### Mini-Monitor
-```
-python3.4 $Visor_HOME/src/mini_monitor/mini_monitor.py -i fake_error_file.log
+python3.4 $VISORHOME/src/mini_monitor/mini_monitor.py -i [logfile]
 ```
 
-### TCP Socket Transmission
-* Stream Apache access log
+### TCP Transmission + Spark Streaming
+
+* Generate fake logs and run as TCP server:
+
 ```
-python3.4 $Visor_HOME/src/socket/fake_log_stream.py -m access
+python3.4 $VISORHOME/src/socket/fake_log_stream.py -m [access/error]
 ```
 
-* Stream apache error log
+* Run Spark Streaming application to receive & analyze logs
+
 ```
-python3.4 $Visor_HOME/src/socket/fake_log_stream.py -m error
+$SPARK_HOME/bin/spark-submit $VISORHOME/src/stream_monitor/stream_monitor.py
 ```
+
+### Kafka Streaming + Spark Streaming
+* Start a Kafka server:
+```
+$KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
+```
+
+* Create a Kafka topic:
+```
+$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+```
+
+* Generate fake logs and run as Kafka producer:
+```
+python3.4 $VISORHOME/src/fake_log_gen/fake_log_producer.py -m [access/error]
+```
+
+* Run Spark Streaming application to consume & analyze logs
+```
+$SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.0 $VISORHOME/src/kafka_monitor/kafka_monitor.py
+```
+
 
 ## Resources
 * [Apache Log Files](https://httpd.apache.org/docs/1.3/logs.html)
+* [Unit Testing TCP Server & Client with Python](http://www.devdungeon.com/content/unit-testing-tcp-server-client-python)
 
 ## License
 See the LICENSE file for license rights and limitations (MIT).

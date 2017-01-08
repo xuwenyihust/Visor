@@ -19,7 +19,7 @@ class kafka_monitor(object):
 
 	def run(self):
 		lines = KafkaUtils.createDirectStream(self.ssc, [self.topic], {"metadata.broker.list": self.addr})
-		lines.foreachRDD(lambda x: print(x.collect()))
+		#lines.foreachRDD(lambda x: print(x.collect()))
 
 		self.ssc.start()
 		self.ssc.awaitTermination()
