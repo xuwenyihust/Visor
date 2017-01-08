@@ -12,8 +12,10 @@ src/kafka_monitor/py3-4env/
 src/kafka_monitor/consumer_test.py
 src/kafka_monitor/producer_test.py
 src/kafka_monitor/fake_log_producer.log
+src/stream_monitor/receive_test.py
 script/fake_access_file.log
 script/fake_error_file.log
 test/.ipynb_checkpoints/
 test/fake_access_stream_test.log
 log/kafka_monitor.log
+log/monitor.log
