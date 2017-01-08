@@ -1,6 +1,7 @@
 ![Python 3.4](https://img.shields.io/badge/python-3.4-green.svg)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/xuwenyihust/Visor/blob/master/LICENSE)
-[![in progress](https://img.shields.io/badge/in%20progress-3-orange.svg)](https://github.com/xuwenyihust/Visor/projects/1)
+[![release](https://img.shields.io/badge/release-v0.0-orange.svg)]()
+[![GitHub stars](https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Star)]
 
 <img src="https://raw.githubusercontent.com/xuwenyihust/Visor/master/img/Visor.JPG" align="right" />
 # Visor: Real-time Log Monitor - [Read The Docs](https://goo.gl/F0rADZ)
