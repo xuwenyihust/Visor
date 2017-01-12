@@ -1,5 +1,13 @@
 UNKNOWN.egg-info/
+py-1.4.32-py3.4.egg/
+pytest-3.0.5-py3.4.egg/
+tests/.ipynb_checkpoints/
+tests/.top_test.py.swp
+tests/__pycache__/
+tests/fake_access_log_dist.log
+tests/fake_access_stream_test.log
 script/fake_logfile
+log/fake_log_producer.log
 src/__pycache__/
 src/fake_log_gen/__pycache__/
 src/fake_log_gen/.fake_log_gen.py.swp
