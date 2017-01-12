@@ -1,3 +1,4 @@
+UNKNOWN.egg-info/
 script/fake_logfile
 src/__pycache__/
 src/fake_log_gen/__pycache__/
