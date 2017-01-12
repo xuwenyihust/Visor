@@ -32,7 +32,7 @@ The whole platform is composed of several components:
 
 ### Fake Log Generator
 
-Currently we support generating and analyzing 2 log formats: Apache access log format and Apache error log format.
+Currently we support generating and analyzing 2 [log formats](https://github.com/xuwenyihust/Visor/wiki/Log-Formats): Apache access log format and Apache error log format.
 
 |Access Log Fields|Error Log Fields|
 |-----|-----|
