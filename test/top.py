@@ -1,12 +1,9 @@
-import unittest
+import pytest
 from src.fake_log_gen import fake_log_gen
 
-class top(unittest.TestCase):
+class TestClass:
+	def test_one(self):
+		x = 'this'
+		assert 'h' in x
 
-	def testPass(self):
-		return
 
-	
-
-if __name__ == '__main__':
-	unittest.main()
