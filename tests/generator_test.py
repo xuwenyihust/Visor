@@ -76,7 +76,7 @@ class error_test(fake_log_gen.fake_error_gen):
 	
 	def __init__(self, log, config, mode, heart_num, warn_num, error_num):
 		super(error_test, self).__init__(log, config, mode)
-		self.heat_num = heart_num
+		self.heart_num = heart_num
 		self.warn_num = warn_num
 		self.error_num = error_num
 
@@ -129,7 +129,7 @@ class Test_Log_Gen:
 			log = logging.getLogger('Gen')
 			logging.basicConfig(level=logging.INFO)
 
-			log_format = logging.Formatter("%(message)s")
+			log_format = logging.Formatter("[%(asctime)s] [%(levelname)s] %(message)s", "%a %b %d %H:%M:%S %Y")
 			out = logging.FileHandler(f)
 			out.setFormatter(log_format)
 			log.addHandler(out)
@@ -148,9 +148,9 @@ class Test_Log_Gen:
 			sample_line = '127.0.0.1 user-identifier frank [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326'
 			line_size = sys.getsizeof(sample_line)
 
-			lines = access_file.readlines(line_size*100)
+			lines = error_file.readlines(line_size*100)
 			total_num = len(lines)
-			heart_num_res = len([line for line in lines if 'HEARTBEAT' in line])
+			heart_num_res = len([line for line in lines if 'INFO' in line])
 			warn_num_res = len([line for line in lines if 'WARNING' in line])
 			error_num_res = len([line for line in lines if 'ERROR' in line])
 			
