@@ -56,6 +56,6 @@ class Log_Gen_Test_Class:
 		mode = 'access'
 		log_gen = access_test(self.log, self.config, mode)
 		log_gen.run()		
-
+		assert self.access_file != ''
 
 
