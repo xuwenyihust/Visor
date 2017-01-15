@@ -2,6 +2,8 @@ import pytest
 import os
 import logging
 import asyncio
+from asyncio import coroutine
+import numpy
 import datetime
 from src.fake_log_gen import fake_log_gen
 
