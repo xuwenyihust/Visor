@@ -5,6 +5,7 @@ import asyncio
 from asyncio import coroutine
 import numpy
 import datetime
+import time
 import json
 from src.fake_log_gen import fake_log_gen
 
@@ -53,33 +54,37 @@ class access_test(fake_log_gen.fake_access_gen):
 
 class Test_Log_Gen:
 
-	def test_sample(self):
-		x = 'this'
-		assert 'h' in x
-
 	def test_access_log_heartbeat(self, tmpdir):
-		#access_file = tmpdir.mkdir("sub").join("access_logs_"+str(datetime.datetime.now())[-6:]+".txt")
-		with open("access_logs_test.txt", "w+") as access_file:
-			# Logs
-			log = logging.getLogger('Gen')
-			logging.basicConfig(level=logging.INFO)
+		#f = os.environ['VISORHOME']+"/tests/tmp/"+"access_logs_test_"+str(datetime.datetime.now())[-6:]+".txt"
+		f = os.environ['VISORHOME']+"/tests/tmp/"+"access_logs_test.txt"
+		#with open(f, "w+") as access_file:
+		access_file = open(f, "w")
+		# Logs
+		log = logging.getLogger('Gen')
+		logging.basicConfig(level=logging.INFO)
 
-			log_format = logging.Formatter("%(message)s")
-			out = logging.FileHandler("access_logs_test.txt")
-			out.setFormatter(log_format)
-			log.addHandler(out)
+		log_format = logging.Formatter("%(message)s")
+		out = logging.FileHandler(f)
+		out.setFormatter(log_format)
+		log.addHandler(out)
 
 		# Configs
-			with open(os.environ['VISORHOME']+"/config/fake_log_gen.json") as config_file:
-				config = json.load(config_file)
+		with open(os.environ['VISORHOME']+"/config/fake_log_gen.json") as config_file:
+			config = json.load(config_file)
 
 
-			mode = 'access'
-			heart_num = 10
-			log_gen = access_test(log, config, mode, heart_num)
-			log_gen.run()	
+		mode = 'access'
+		heart_num = 3
+		log_gen = access_test(log, config, mode, heart_num)
+		log_gen.run()	
+		access_file.close()
+		#time.sleep(10)		
 
-			
-			assert access_file.read() != ''
+		#with open(f, "r") as access_file:
+		access_file = open(f, "r")
+		lines = access_file.readlines()	
+		heart_num_res = len([line for line in lines if 'HEARTBEAT' in line])			
+		assert heart_num_res == heart_num
+		assert len(lines) == 3
 
 
