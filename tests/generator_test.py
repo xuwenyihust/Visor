@@ -15,7 +15,8 @@ class Log_Gen_Test_Class:
 		logging.basicConfig(level=logging.INFO)
 
 		log_format = logging.Formatter("%(message)s")
-		out = logging.FileHandler('sub/access_logs.txt')
+		#out = logging.FileHandler('sub/access_logs.txt')
+		out = logging.FileHandler(access_file)
 		out.setFormatter(log_format)
 		log.addHandler(out)
 
