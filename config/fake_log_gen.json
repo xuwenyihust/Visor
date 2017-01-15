@@ -1,7 +1,7 @@
 {
 	"heartbeat": {
 		"interval": "1",
-		"message": "HEARBEAT"
+		"message": "HEARTBEAT"
 	},
 	"access": {
 		"interval": {
