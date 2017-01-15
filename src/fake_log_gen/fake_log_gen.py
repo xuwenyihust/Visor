@@ -48,19 +48,22 @@ class fake_access_gen(fake_log_gen):
 		self.versions = self.config["access"]["version"]
 
 	def run(self):
-		loop = asyncio.get_event_loop()
-		loop.run_until_complete(
-			asyncio.wait([
-				self.heartbeat_lines(),
-				self.access_lines()]	
+		self.loop = asyncio.get_event_loop()
+		try:
+			self.loop.run_until_complete(
+				asyncio.wait([
+					self.heartbeat_lines(),
+					self.access_lines()]
+					#self.heartbeat_lines()]
+				)
 			)
-		)
-		loop.close()
-
+		finally:
+			self.loop.close()
 
 	@coroutine
 	def heartbeat_lines(self):
 		while True:
+		#for i in range(3):
 			t = datetime.datetime.now().strftime('%d/%b/%Y:%H:%M:%S -0700')	
 			self.log.info('- - - [%s] "%s" - -', t, self.config["heartbeat"]["message"])
 			yield from asyncio.sleep(int(self.config["heartbeat"]["interval"]))
