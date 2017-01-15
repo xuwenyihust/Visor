@@ -6,6 +6,7 @@ tests/.top_test.py.swp
 tests/__pycache__/
 tests/fake_access_log_dist.log
 tests/fake_access_stream_test.log
+tests/tmp
 script/fake_logfile
 log/fake_log_producer.log
 src/__pycache__/
