@@ -1,5 +1,7 @@
 language: python
 sudo: required
+env:
+ - 'VISORHOME'=$TRAVIS_BUILD_DIR
 python:
  - "3.4"
  - "3.5"
