@@ -14,21 +14,7 @@ from src.fake_log_gen import fake_log_gen
 class access_test(fake_log_gen.fake_access_gen):
 
 	def __init__(self, log, config, mode, heart_num, access_num):
-		'''self.log = log
-		self.mode = mode
-		# Dict that contains config info
-		self.config = config
 
-		self.access_min = self.config["access"]["interval"]["min"]
-		self.access_max = self.config["access"]["interval"]["max"]
-		self.user_ids = self.config["access"]["user_id"]
-		self.methods = self.config["access"]["method"]
-		self.methods_dist = self.config["access"]["method_dist"]
-		self.resources = self.config["access"]["resource"]
-		self.codes = self.config["access"]["code"]
-		self.codes_dist = self.config["access"]["code_dist"]
-		self.versions = self.config["access"]["version"]
-		'''
 		super(access_test, self).__init__(log, config, mode)
 
 		# Uniquely in testing
@@ -209,7 +195,7 @@ class Test_Log_Gen:
 
 	
 	def in_range(self, x, y):
-		return float(x/y) >= 0.7 and float(x/y) <= 1.3
+		return float(x/y) >= 0.6 and float(x/y) <= 1.4
 
 
 
