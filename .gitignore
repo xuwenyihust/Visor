@@ -1,3 +1,5 @@
+.cache/
+pytest_runner-2.9-py3.4.egg
 UNKNOWN.egg-info/
 py-1.4.32-py3.4.egg/
 pytest-3.0.5-py3.4.egg/

@@ -37,15 +37,15 @@ class access_test(fake_log_gen.fake_access_gen):
 
 	def run(self):
 		self.loop = asyncio.get_event_loop()
-		try:
-			self.loop.run_until_complete(
-				asyncio.wait([
-					self.access_lines(),
-					self.heartbeat_lines()]
-				)
+
+		self.loop.run_until_complete(
+			asyncio.wait([
+				self.access_lines(),
+				self.heartbeat_lines()]
 			)
-		finally:
-			self.loop.close()
+		)
+
+
 
 	@coroutine
 	def heartbeat_lines(self):
@@ -82,16 +82,16 @@ class error_test(fake_log_gen.fake_error_gen):
 
 	def run(self):
 		self.loop = asyncio.get_event_loop()
-		try:
-			self.loop.run_until_complete(
-				asyncio.wait([
-					self.heartbeat_lines(),
-					self.warn_lines(),
-					self.error_lines()]
-				)
+
+		self.loop.run_until_complete(
+			asyncio.wait([
+				self.heartbeat_lines(),
+				self.warn_lines(),
+				self.error_lines()]
 			)
-		finally:
-			self.loop.close()
+		)
+		
+	
 
 	@coroutine
 	def heartbeat_lines(self):

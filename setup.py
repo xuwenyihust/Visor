@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
-tests_require = [
-	'pytest'
-]
-
 setup(
+	version = '0.0',
+	author = 'Wenyi Xu',
+	packages = find_packages(),
 	test_suite = 'tests',
-	tests_require=tests_require
+	setup_requires=['pytest-runner'],
+	tests_require = ['pytest']
 )
