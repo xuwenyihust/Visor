@@ -3,6 +3,7 @@
 [![Travis](https://travis-ci.org/xuwenyihust/Visor.svg?branch=master)](https://travis-ci.org/xuwenyihust/Visor)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/xuwenyihust/Visor/blob/master/LICENSE)
 [![Coverage Status](https://coveralls.io/repos/github/xuwenyihust/Visor/badge.svg)](https://coveralls.io/github/xuwenyihust/Visor)
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/xuwenyihust/Visor.svg)](http://isitmaintained.com/project/xuwenyihust/Visor "Percentage of issues still open")
 
 <img src="https://raw.githubusercontent.com/xuwenyihust/Visor/master/img/Visor.JPG" align="right" />
 # Visor: Real-time Log Monitor - [Read The Docs](https://goo.gl/F0rADZ)
