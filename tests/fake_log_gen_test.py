@@ -164,7 +164,7 @@ class Test_Log_Gen:
 
 			mode = 'access'
 			heart_num = 10
-			access_num = 100
+			access_num = 1000
 			log_gen = access_test(log, config, mode, heart_num, access_num)
 			log_gen.run()	
 			
@@ -195,7 +195,7 @@ class Test_Log_Gen:
 
 	
 	def in_range(self, x, y):
-		return float(x/y) >= 0.6 and float(x/y) <= 1.4
+		return float(x/y) >= 0.7 and float(x/y) <= 1.3
 
 
 
