@@ -6,7 +6,7 @@ python:
  - "3.6"
 before_install:
  - export PYTHONPATH=$PYTHONPATH:$(pwd)
- - export VISORHOME=$(pwd)
+ - export VISORHOME=$TRAVIS_BUILD_DIR
 install:
  - pip install -r requirements.txt
  - pip install coveralls
