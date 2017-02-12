@@ -131,6 +131,18 @@ $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
 $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
 ```
 
+* Check if the topic has been created:
+```
+$KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper localhost:2181
+```
+
+Should output:
+```
+...
+test
+...
+```
+
 * Generate fake logs and run as Kafka producer:
 ```
 python3.4 $VISORHOME/src/fake_log_gen/fake_log_producer.py -m [access/error]
@@ -141,10 +153,13 @@ python3.4 $VISORHOME/src/fake_log_gen/fake_log_producer.py -m [access/error]
 $SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.0 $VISORHOME/src/kafka_monitor/kafka_monitor.py
 ```
 
+## Performance
+
 
 ## Resources
 * [Apache Log Files](https://httpd.apache.org/docs/1.3/logs.html)
 * [Unit Testing TCP Server & Client with Python](http://www.devdungeon.com/content/unit-testing-tcp-server-client-python)
+* [How to choose the number of topicspartitions in a kafka cluster](https://www.confluent.io/blog/how-to-choose-the-number-of-topicspartitions-in-a-kafka-cluster/)
 
 ## License
 See the LICENSE file for license rights and limitations (MIT).
