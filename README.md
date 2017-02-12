@@ -136,8 +136,9 @@ $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replicatio
 $KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper localhost:2181
 ```
 
->>> Should output:
 ```
+>>> Output:
+
 ...
 test
 ...
