@@ -71,7 +71,6 @@ message: %s
 		#useful_lines = val_lines.filter(lambda x: 'HEARTBEAT' not in x)
 
 		error_lines = val_lines.filter(lambda x: 'ERROR' in x)
-							   #.map(lambda x: x.split(']'))
 
 		#error_lines.foreachRDD(lambda x: print(x.collect()))
 		error_lines.foreachRDD(lambda x: self.error_alert_email(x.collect()))
