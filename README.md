@@ -136,7 +136,7 @@ $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replicatio
 $KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper localhost:2181
 ```
 
-Should output:
+  Should output:
 ```
 ...
 test
@@ -145,12 +145,12 @@ test
 
 * Generate fake logs and run as Kafka producer:
 ```
-python3.4 $VISORHOME/src/fake_log_gen/fake_log_producer.py -m [access/error]
+python3.4 $VISORHOME/src/fake_log_gen/fake_log_producer.py -m [access/error] -o $VISORHOME/log/fake_log_producer.log
 ```
 
 * Run Spark Streaming application to consume & analyze logs
 ```
-$SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.0 $VISORHOME/src/kafka_monitor/kafka_monitor.py
+$SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.0 $VISORHOME/src/kafka_monitor/kafka_monitor.py > $VISORHOME/log/kafka_monitor.log
 ```
 
 ## Performance
