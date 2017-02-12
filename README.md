@@ -63,6 +63,9 @@ The mini-monitor is a simple prototype, written in pure Python. It can only work
 
 The application implemented with Spark Streaming can realize real-time when used with Apache Kafka.
 
+### Architecture
+<img src="https://raw.githubusercontent.com/xuwenyihust/Visor/master/img/visor_architecture.JPG" align="middle" />
+
 ## Configuration
 ### Environment Variables
 Add the application's root directory to both `$PYTHONPATH` and `$VISORHOME`.
