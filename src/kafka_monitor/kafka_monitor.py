@@ -4,8 +4,6 @@ from pyspark.streaming.kafka import KafkaUtils
 import json
 import os
 import smtplib
-#from smtplib import SMTP_SSL as SMTP
-#from email.mime.text import MIMEText
 
 
 class kafka_monitor(object):
@@ -25,46 +23,44 @@ class kafka_monitor(object):
 		self.addr = 'localhost:9092'
 		self.topic = 'TutorialTopic'	
 
-	def error_alert(self):
-		'''text = 'An error occurs!'
-		msg = MIMEText(text, 'plain')
-		msg['Subject'] = "Error detected"
-		# Send the email to where?
-		me = 'wenyixu101@gmail.com'
-		msg['To'] = me
-		try:	
-			conn = SMTP('localhost')
-			conn.set_debuglevel(True)
-			conn.login(self.config['email']['address'], self.config['email']['password'])
-			try:
-				conn.sendmail(me, me, msg.as_string())
-			finally:
-				conn.close()
-		except:
-			print('Unable to send email!')'''
+	def error_alert_email(self, error):
+		if len(error) > 0:
+		# Parse the error	
+			error_li = error[0].split(']')
+			error_time = error_li[0].lstrip('[')
+			error_client = error_li[3].split(' ')[2]
+			error_msg = error_li[4].rstrip('\n')	
 
-		TO = 'wenyixu101@gmail.com'
-		SUBJECT = 'TEST MAIL'
-		TEXT = 'Here is a message from python.'
+			TO = 'wenyixu101@gmail.com'
+			SUBJECT = 'Error Alert'
+			TEXT = '''
+An error occurred in the cluster.
+
+time: %s
+
+client: %s
+
+message: %s
+		''' % (error_time, error_client, error_msg) 
 	
-		# Gmail Sign In
-		gmail_sender = 'visorannouncement@gmail.com'
-		gmail_passwd = 'omg876dqbi@dfs'
+			# Gmail Sign In
+			gmail_sender = self.config['email']['address']
+			gmail_passwd = self.config['email']['password']
 
-		server = smtplib.SMTP('smtp.gmail.com', 587)
-		server.ehlo()
-		server.starttls()
-		server.login(gmail_sender, gmail_passwd)
+			server = smtplib.SMTP('smtp.gmail.com', 587)
+			server.ehlo()
+			server.starttls()
+			server.login(gmail_sender, gmail_passwd)
 
-		BODY = '\r\n'.join(['To: %s' % TO,'From: %s' % gmail_sender,'Subject: %s' % SUBJECT,'', TEXT])
+			BODY = '\r\n'.join(['To: %s' % TO,'From: %s' % gmail_sender,'Subject: %s' % SUBJECT,'', TEXT])
 
-		try:	
-			server.sendmail(gmail_sender, [TO], BODY)
-			print ('email sent')
-		except:
-			print ('error sending mail')
+			try:	
+				server.sendmail(gmail_sender, [TO], BODY)
+				print ('email sent')
+			except:
+				print ('error sending mail')
 
-		server.quit()
+			server.quit()
 
 	def run(self):
 		# Consume Kafka streams directly, without receivers
@@ -72,12 +68,13 @@ class kafka_monitor(object):
 		#lines.foreachRDD(lambda x: print(x.collect()))
 		val_lines = lines.map(lambda x: x[1])
 		#val_lines.foreachRDD(lambda x: print(x.collect()))
-		useful_lines = val_lines.filter(lambda x: 'HEARTBEAT' not in x)
+		#useful_lines = val_lines.filter(lambda x: 'HEARTBEAT' not in x)
 
 		error_lines = val_lines.filter(lambda x: 'ERROR' in x)
+							   #.map(lambda x: x.split(']'))
 
 		#error_lines.foreachRDD(lambda x: print(x.collect()))
-		error_lines.foreachRDD(lambda x: self.error_alert())
+		error_lines.foreachRDD(lambda x: self.error_alert_email(x.collect()))
 
 		self.ssc.start()
 		self.ssc.awaitTermination()

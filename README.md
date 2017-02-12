@@ -63,6 +63,9 @@ The mini-monitor is a simple prototype, written in pure Python. It can only work
 
 The application implemented with Spark Streaming can realize real-time when used with Apache Kafka.
 
+### Alert System
+The alert system can detect & announce errors with very short latency.
+
 ### Architecture
 
 Kafka + Spark Streaming:
