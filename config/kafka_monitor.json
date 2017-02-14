@@ -1,6 +1,17 @@
 {
+	"master_url": "local[4]",
+	"app_name": "Kafka Monitor",
+	"batch_interval": 1,
+	"kafka": {
+		"addr": "localhost:9092",
+		"topic": "TutorialTopic"
+	},
 
-
-
+	"email": {
+		"report_inetrval": 10,
+		"report_subject": "Summary Report",
+		"receiver": "wenyixu101@gmail.com",
+		"alert_subject": "Error Alert"
+	}
 
 }
