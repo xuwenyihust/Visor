@@ -30,9 +30,13 @@ class kafka_monitor(object):
 
 		# Set the summary report params
 		# report interval: in terms of sec
-		self.report_inetrval = self.config['email']['report']['inetrval']
+		self.report_interval = self.config['email']['report']['interval']
 		self.error_cnt = 0
 		self.error_li = []
+
+		# Count the total number of logs
+		# Used in summary report system
+		self.total_log_num = 0
 
 	
 	# Send an email every time detects an error log
@@ -86,16 +90,18 @@ message: %s
 			TO = self.config['email']['report']['receiver']
 			SUBJECT = self.config['email']['report']['subject']
 			TEXT = '''
-Error count: %d
+Log count: {lc}
 
-Errors:
-			''' % (error_cnt)
+Error count: {ec}
 
-			if len(errors) == 0:
-				TEXT += 'None'
-			else:
-				for error in errors:
-					TEXT += error
+Error rate: {er}%
+			'''.format(lc=self.total_log_num, ec=error_cnt, er=error_cnt/self.total_log_num*100)
+
+			#if len(errors) == 0:
+			#	TEXT += 'None'
+			#else:
+			#	for error in errors:
+			#		TEXT += error
 
 			# Sender Gmail Sign In
 			gmail_sender = self.config_private['email']['address']
@@ -120,41 +126,36 @@ Errors:
 
 	def run(self):
 		# Consume Kafka streams directly, without receivers
-		lines = KafkaUtils.createDirectStream(self.ssc, [self.topic], {"metadata.broker.list": self.addr}).window(30, 30)
-		#lines.foreachRDD(lambda x: print(x.collect()))
+		lines = KafkaUtils.createDirectStream(self.ssc, [self.topic], {"metadata.broker.list": self.addr})
+		# Extract the log text messages	
 		val_lines = lines.map(lambda x: x[1])
-		#val_lines.foreachRDD(lambda x: print(x.collect()))
-		#useful_lines = val_lines.filter(lambda x: 'HEARTBEAT' not in x)
-
+		# Filter out the error logs
 		error_lines = val_lines.filter(lambda x: 'ERROR' in x)
 
-		#error_lines.foreachRDD(lambda x: print(x.collect()))
+		# Every time an error occurs, send an alert email	
 		error_lines.foreachRDD(lambda x: self.error_alert_email(x.collect()))
 
+		# Use val_sum_lines to store all log lines in the window
+		# val_sum_lines.count() will be used as the total num of logs in the window
+		# Same window size as error_sum_lines, but slides much faster to update faster	
+		val_sum_lines = val_lines.window(self.report_interval, 3)
+		# Window the error lines
+		error_sum_lines = error_lines.window(self.report_interval, self.report_interval)
 		# Generate summary report every window time
-		error_sum_lines = error_lines.window(self.report_inetrval, self.report_inetrval)
 		error_sum_lines.foreachRDD(lambda x: self.summary_report_email(x.collect(), x.count()))
+	
+		def get_total_log_num(val_sum_lines):
+			self.total_log_num = val_sum_lines.count()
+			return 
 
+		# Collect the total number of logs in the current window	
+		val_sum_lines.foreachRDD(get_total_log_num)
+	
 		#####################################################
 		# Start the streaming process
-		self.ssc.start()
-
-		'''counter = 0
-		while counter <= self.report_inetrval:
-			if counter == self.report_inetrval:
-				self.summary_report_email()
-				self.error_cnt = 0
-				self.error_li = []
-				#print('>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<')
-				counter = 0
-			else:
-				# Sleep 1 sec
-				time.sleep(1)
-				# Increase the counter
-				counter += 1
-		'''
-
+		self.ssc.start()	
 		self.ssc.awaitTermination()
+
 
 if __name__=="__main__":
 	# Load the configurations
