@@ -122,8 +122,8 @@ Statistics:
 
 	Top error ip addresses:
 	- {top_eip_0}: {top_eip_0_num}
-    - {top_eip_1}: {top_eip_1_num}
-    - {top_eip_2}: {top_eip_2_num}
+	- {top_eip_1}: {top_eip_1_num}
+	- {top_eip_2}: {top_eip_2_num}
 
 			'''.format(lc = self.total_log_num, \
 					   ec = error_cnt, \
