@@ -100,6 +100,23 @@ An example of the configuration files:
     }
 ```
 
+### Alert / Report Sender Email
+
+A new json file needs to be created by user to store the authentication information of the Alert / Report system sender email.
+
+The format should be like:
+
+```json
+{
+	"email": {
+		"address": "XXXXXXXXXXXXX",
+		"password": "XXXXXXXXXXXXX"
+	}
+}
+
+```
+And named after 'private.json'.
+
 ## Usage
 
 ### Direct File Import + Mini-Monitor
