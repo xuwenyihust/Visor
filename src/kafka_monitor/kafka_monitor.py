@@ -30,24 +30,24 @@ class kafka_monitor(object):
 
 		# Set the summary report params
 		# report interval: in terms of sec
-		self.report_inetrval = self.config['email']['report_inetrval']
+		self.report_inetrval = self.config['email']['report']['inetrval']
 		self.error_cnt = 0
 		self.error_li = []
 
-	'''
-	Send an email every time detects an error log
-	'''
+	
+	# Send an email every time detects an error log
 	def error_alert_email(self, error):
 		# In case of empty list
-		if len(error) > 0:
+		# Check if the report system is on
+		if len(error) > 0 and self.config['email']['alert']['on']:
 			# Parse the error	
 			error_li = error[0].split(']')
 			error_time = error_li[0].lstrip('[')
 			error_client = error_li[3].split(' ')[2]
 			error_msg = error_li[4].rstrip('\n')	
 
-			TO = self.config['email']['receiver']
-			SUBJECT = self.config['email']['alert_subject']
+			TO = self.config['email']['alert']['receiver']
+			SUBJECT = self.config['email']['alert']['subject']
 			TEXT = '''
 An error occurred in the cluster.
 
@@ -58,7 +58,7 @@ client: %s
 message: %s
 		''' % (error_time, error_client, error_msg) 
 	
-			# Gmail Sign In
+			# Sender Gmail Sign In
 			gmail_sender = self.config_private['email']['address']
 			gmail_passwd = self.config_private['email']['password']
 
@@ -78,49 +78,49 @@ message: %s
 			server.quit()
 
 	
-	'''
-	Send an email every pre-defined time (30 min / 2 hrs / 1 day ...)
-	to report the summary
-	'''
+	
+	# Send an email every pre-defined time (30 min / 2 hrs / 1 day ...)
+	# to report the summary
 	def summary_report_email(self, errors, error_cnt):
-		TO = self.config['email']['receiver']
-		SUBJECT = self.config['email']['report_subject']
-		TEXT = '''
+		if self.config['email']['report']['on']:
+			TO = self.config['email']['report']['receiver']
+			SUBJECT = self.config['email']['report']['subject']
+			TEXT = '''
 Error count: %d
 
 Errors:
-		''' % (error_cnt)
+			''' % (error_cnt)
 
-		if len(errors) == 0:
-			TEXT += 'None'
-		else:
-			for error in errors:
-				TEXT += error
+			if len(errors) == 0:
+				TEXT += 'None'
+			else:
+				for error in errors:
+					TEXT += error
 
-		# Gmail Sign In
-		gmail_sender = self.config_private['email']['address']
-		gmail_passwd = self.config_private['email']['password']
+			# Sender Gmail Sign In
+			gmail_sender = self.config_private['email']['address']
+			gmail_passwd = self.config_private['email']['password']
 
-		server = smtplib.SMTP('smtp.gmail.com', 587)
-		server.ehlo()
-		server.starttls()
-		server.login(gmail_sender, gmail_passwd)
+			server = smtplib.SMTP('smtp.gmail.com', 587)
+			server.ehlo()
+			server.starttls()
+			server.login(gmail_sender, gmail_passwd)
 
-		BODY = '\r\n'.join(['To: %s' % TO,'From: %s' % gmail_sender,'Subject: %s' % SUBJECT,'', TEXT])
+			BODY = '\r\n'.join(['To: %s' % TO,'From: %s' % gmail_sender,'Subject: %s' % SUBJECT,'', TEXT])
 
-		try:
-			server.sendmail(gmail_sender, [TO], BODY)
-			print ('email sent')
-		except:
-			print ('error sending mail')
+			try:
+				server.sendmail(gmail_sender, [TO], BODY)
+				print ('email sent')
+			except:
+				print ('error sending mail')
 
-		server.quit()
+			server.quit()
 
 
 
 	def run(self):
 		# Consume Kafka streams directly, without receivers
-		lines = KafkaUtils.createDirectStream(self.ssc, [self.topic], {"metadata.broker.list": self.addr}).window(10, 10)
+		lines = KafkaUtils.createDirectStream(self.ssc, [self.topic], {"metadata.broker.list": self.addr}).window(30, 30)
 		#lines.foreachRDD(lambda x: print(x.collect()))
 		val_lines = lines.map(lambda x: x[1])
 		#val_lines.foreachRDD(lambda x: print(x.collect()))
@@ -161,6 +161,7 @@ if __name__=="__main__":
 	with open(os.environ['VISORHOME']+"/config/kafka_monitor.json") as config_file:
 		config = json.load(config_file)
 
+	# Load private email information
 	with open(os.environ['VISORHOME']+"/config/private.json") as private_file:
 		config_private = json.load(private_file)
 
