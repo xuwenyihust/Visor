@@ -19,6 +19,7 @@ class kafka_monitor(object):
 		conf = SparkConf()
 		conf.setMaster(self.config['master_url'])
 		conf.setAppName(self.config['app_name'])
+		conf.set("num-executors", "3")
 		# Initialize a SparkContext
 		sc = SparkContext(conf=conf)
 		# Set the batch interval to be 1 sec
@@ -47,6 +48,7 @@ class kafka_monitor(object):
 			# Parse the error	
 			error_li = error[0].split(']')
 			error_time = error_li[0].lstrip('[')
+			error_process = error_li[2].lstrip().lstrip('[')
 			error_client = error_li[3].split(' ')[2]
 			error_msg = error_li[4].rstrip('\n')	
 
@@ -55,12 +57,14 @@ class kafka_monitor(object):
 			TEXT = '''
 An error occurred in the cluster.
 
-time: %s
+Time: %s
 
-client: %s
+Process: %s
 
-message: %s
-		''' % (error_time, error_client, error_msg) 
+Client: %s
+
+Message: %s
+		''' % (error_time, error_process, error_client, error_msg) 
 	
 			# Sender Gmail Sign In
 			gmail_sender = self.config_private['email']['address']
@@ -90,12 +94,18 @@ message: %s
 			TO = self.config['email']['report']['receiver']
 			SUBJECT = self.config['email']['report']['subject']
 			TEXT = '''
-Log count: {lc}
+Basic:
 
-Error count: {ec}
+	Log count: {lc}
 
-Error rate: {er}%
-			'''.format(lc=self.total_log_num, ec=error_cnt, er=error_cnt/self.total_log_num*100)
+	Error count: {ec}
+
+	Error rate: {er: .2f}%
+
+Performance:
+
+	Log import rate: {lr: .2f} per sec
+			'''.format(lc=self.total_log_num, ec=error_cnt, er=error_cnt/self.total_log_num*100, lr=self.total_log_num/self.report_interval)
 
 			#if len(errors) == 0:
 			#	TEXT += 'None'
