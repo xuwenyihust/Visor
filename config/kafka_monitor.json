@@ -9,13 +9,13 @@
 
 	"email": {
 		"report": {
-			"on": "True",
-			"interval": 30,
+			"on": true,
+			"interval": 60,
 			"subject": "Summary Report",
 			"receiver": "wenyixu101@gmail.com"
 		},
 		"alert" : {
-			"on": "True",
+			"on": true,
 			"receiver": "wenyixu101@gmail.com",
 			"subject": "Error Alert"
 		}
