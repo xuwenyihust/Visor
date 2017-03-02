@@ -10,7 +10,7 @@
 	"email": {
 		"report": {
 			"on": "True",
-			"inetrval": 30,
+			"interval": 30,
 			"subject": "Summary Report",
 			"receiver": "wenyixu101@gmail.com"
 		},
