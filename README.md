@@ -50,7 +50,7 @@ The generated log lines will be stored into files by default, you can also strea
 
 In real world, log traffic may have huge **peaks**, and these peaks may lead to high latencies in our streaming system. So the generator supports suddenly producing huge amounts of logs to itry to give the streaming system more pressures.
 
-<img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_peak.png" align="left" />
+<img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_peak.png" />
 
 
 ### Log Import
