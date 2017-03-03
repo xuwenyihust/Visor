@@ -191,7 +191,7 @@ $SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-0
 
 ## Performance
 
-* Machine spec:
+* Machine Spec:
 
     * Platform: My own laptop
 
@@ -201,17 +201,24 @@ $SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-0
 
     * RAM: 4GB
 
-* Spark version: 2.0.0
+* Spark Version: 2.0.0
+
+* Kafka Version: 0.8.2.1
 
 * Python Version: 3.4.3
+
+* Spark Deployment Mode: Standalone
 
 * Performance Statistics:
 
 |Spec|Stat|
 |------|------|
-|Input Rate|24.24 Rec/Sec|
-|Batch Interval|2 Sec|
-
+|Batch Interval|3 Sec|
+|# of Executors|1|
+|# of Cores per Executor|4|
+|# of Kafka Tpoic Partition|1|
+|Avg Input Rate|24.24 Rec/Sec|
+|Avg Processing Time|1 Sec 962ms|
 
 
 ## Resources
