@@ -52,10 +52,13 @@ In real world, log traffic may have huge **peaks**, and these peaks may lead to 
 
 So the generator supports suddenly producing huge amounts of logs to try to give the streaming system more pressures.
 
-* **Log import rates showd by Spark UI:**
+#### Log import rates showd by Spark UI:
 
   <img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_peak.png" />
 
+#### Corresponding spark streaming process time:
+
+  <img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_peak_process.png" />
 
 ### Log Import
 Support 3 log import modes:
