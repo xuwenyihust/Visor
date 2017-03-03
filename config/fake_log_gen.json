@@ -30,6 +30,18 @@
 			 "HTTP/2.0"
 		]
 	},
+	"info": {
+		"interval": {
+			"min": 0.2,
+			"max": 1
+			},
+		"message": [
+			"Kind of busy now",
+			"Just another round of Civilization!",
+			"I need to change my laptop",
+			"The cluster is not fully utilized"
+		]
+	},
 	"warn": {
 		"interval": {
 			"min": 5,
