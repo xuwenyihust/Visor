@@ -207,6 +207,8 @@ $SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-0
 
 * Performance Statistics:
 
+|Spec|Stat|
+|------|------|
 |Input Rate|24.24 Rec/Sec|
 |Batch Interval|2 Sec|
 
