@@ -84,7 +84,24 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 			data = asctime + level_name + msg
 			self.log.info(data)
 			self.producer.send('TutorialTopic', (data+'\n').encode())
-			yield from asyncio.sleep(random.uniform(self.info_min, self.info_max))
+			
+			if not self.info_peak_flag:
+				info_normal = self.info_normal[random.randint(0, len(self.info_normal)-1)]
+				yield from asyncio.sleep(random.uniform(info_normal[0], info_normal[1]))
+				if self.info_peak_counter > 50:
+					self.info_peak_flag = True
+					self.info_peak_counter = 0
+				else:
+					self.info_peak_counter += random.uniform(0.2,0.5)
+			else:
+				info_peak = self.info_peak[random.randint(0, len(self.info_peak)-1)]
+				yield from asyncio.sleep(random.uniform(info_peak[0], info_peak[1]))	
+				if self.info_peak_counter > 350:
+					self.info_peak_flag = False
+					self.info_peak_counter = 0
+				else:
+					self.info_peak_counter += random.uniform(1, 1.2)
+
 
 	@coroutine
 	def warn_lines(self):
