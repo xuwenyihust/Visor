@@ -92,7 +92,7 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 					self.info_peak_flag = True
 					self.info_peak_counter = 0
 				else:
-					self.info_peak_counter += random.uniform(0.2,0.5)
+					self.info_peak_counter += random.uniform(0.05,0.5)
 			else:
 				info_peak = self.info_peak[random.randint(0, len(self.info_peak)-1)]
 				yield from asyncio.sleep(random.uniform(info_peak[0], info_peak[1]))	
@@ -134,7 +134,24 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 			self.log.error(data)
 			#self.client.send((data+'\n').encode())
 			self.producer.send('TutorialTopic', (data+'\n').encode())
-			yield from asyncio.sleep(random.uniform(self.error_min, self.error_max))
+
+			if not self.error_peak_flag:
+				error_normal = self.error_normal[random.randint(0, len(self.error_normal)-1)]
+				yield from asyncio.sleep(random.uniform(error_normal[0], error_normal[1]))
+				if self.error_peak_counter > 20:
+					self.error_peak_flag = True
+					self.error_peak_counter = 0
+				else:
+					self.error_peak_counter += random.uniform(0.2,0.5)
+			else:
+				error_peak = self.error_peak[random.randint(0, len(self.error_peak)-1)]
+				yield from asyncio.sleep(random.uniform(error_peak[0], error_peak[1]))	
+				if self.error_peak_counter > 150:
+					self.error_peak_flag = False
+					self.error_peak_counter = 0
+				else:
+					self.error_peak_counter += random.uniform(1, 1.2)		
+
 
 def main():
 	parser = argparse.ArgumentParser()
