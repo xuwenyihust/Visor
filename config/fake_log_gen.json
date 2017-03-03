@@ -56,8 +56,8 @@
 	},
 	"error": {
 		"interval": {
-			"min": 10,
-			"max": 100
+			"normal": [[1, 10], [2, 5], [5, 10]],
+			"peak": [[0.1, 1], [0.005, 0.01], [0.01, 0.02]]
 		},
 		"message": [
 			"client denied by server configuration",
