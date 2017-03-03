@@ -13,11 +13,12 @@ import numpy
 
 class fake_log_gen(object):
 
-	def __init__(self, log, config, mode):
+	def __init__(self, log, config, kafka_config, mode):
 		self.log = log
 		self.mode = mode
 		# Dict that contains config info
 		self.config = config
+		self.topic = kafka_config["kafka"]["topic"]
 
 	def run(self):
 		loop = asyncio.get_event_loop()
@@ -31,7 +32,7 @@ class fake_log_gen(object):
 
 class fake_access_gen(fake_log_gen):
 
-	def __init__(self, log, config, mode):
+	def __init__(self, log, config, kafka_config, mode):
 		self.log = log
 		self.mode = mode
 		# Dict that contains config info
@@ -46,6 +47,8 @@ class fake_access_gen(fake_log_gen):
 		self.codes = self.config["access"]["code"]
 		self.codes_dist = self.config["access"]["code_dist"]
 		self.versions = self.config["access"]["version"]
+
+		self.topic = kafka_config["kafka"]["topic"]
 
 	def run(self):
 		self.loop = asyncio.get_event_loop()
@@ -88,7 +91,7 @@ class fake_access_gen(fake_log_gen):
 
 class fake_error_gen(fake_log_gen):
 
-	def __init__(self, log, config, mode):
+	def __init__(self, log, config, kafka_config, mode):
 		self.log = log
 		self.mode = mode
 		# Dict that contains config info
@@ -114,6 +117,9 @@ class fake_error_gen(fake_log_gen):
 		
 		self.error_peak_flag = False
 		self.error_peak_counter = 0
+
+		self.topic = kafka_config["kafka"]["topic"]
+
 
 	def run(self): 
 		loop = asyncio.get_event_loop()

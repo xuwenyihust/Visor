@@ -29,7 +29,7 @@ class fake_access_producer(fake_log_gen.fake_access_gen):
 			data = '- - - [%s] "%s" - -' % (t, self.config["heartbeat"]["message"])
 			self.log.info(data)
 			#self.client.send((data+'\n').encode())	
-			self.producer.send('TutorialTopic', (data+'\n').encode())	
+			self.producer.send(self.topic, (data+'\n').encode())	
 			yield from asyncio.sleep(int(self.config["heartbeat"]["interval"]))
 
 	@coroutine
@@ -49,7 +49,7 @@ class fake_access_producer(fake_log_gen.fake_access_gen):
 			data = '%s %s %s [%s] "%s" %s %s' % (ip, user_identifier, user_id, t, msg, code, size)
 			self.log.info(data)
 			#self.client.send((data+'\n').encode())
-			self.producer.send('TutorialTopic', (data+'\n').encode())
+			self.producer.send(self.topic, (data+'\n').encode())
 			yield from asyncio.sleep(random.uniform(self.access_min, self.access_max))
 	
 
@@ -67,7 +67,7 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 			data = "[-] [-] " + self.config["heartbeat"]["message"]
 			self.log.info(data)
 			#self.client.send((data+'\n').encode())
-			self.producer.send('TutorialTopic', (data+'\n').encode())
+			self.producer.send(self.topic, (data+'\n').encode())
 			yield from asyncio.sleep(int(self.config["heartbeat"]["interval"]))
 
 	@coroutine
@@ -83,7 +83,7 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 			msg = "[pid %s:tid %s] [client %s] %s" % (pid, tid, ip, self.infos[random.randrange(len(self.infos))])
 			data = asctime + level_name + msg
 			self.log.info(data)
-			self.producer.send('TutorialTopic', (data+'\n').encode())
+			self.producer.send(self.topic, (data+'\n').encode())
 			
 			if not self.info_peak_flag:
 				info_normal = self.info_normal[random.randint(0, len(self.info_normal)-1)]
@@ -117,7 +117,7 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 			data = asctime + level_name + msg
 			self.log.warning(data)
 			#self.client.send((data+'\n').encode())
-			self.producer.send('TutorialTopic', (data+'\n').encode())
+			self.producer.send(self.topic, (data+'\n').encode())
 			yield from asyncio.sleep(random.uniform(self.warn_min, self.warn_max))
 
 	@coroutine
@@ -133,7 +133,7 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 			data = asctime + level_name + msg
 			self.log.error(data)
 			#self.client.send((data+'\n').encode())
-			self.producer.send('TutorialTopic', (data+'\n').encode())
+			self.producer.send(self.topic, (data+'\n').encode())
 
 			if not self.error_peak_flag:
 				error_normal = self.error_normal[random.randint(0, len(self.error_normal)-1)]
@@ -186,11 +186,15 @@ def main():
 	with open(os.environ['VISORHOME']+"/config/fake_log_gen.json") as config_file:
 		config = json.load(config_file)
 
+	# Load the kafka topic
+	with open(os.environ['VISORHOME']+"/config/kafka_monitor.json") as kafka_config_file:
+		kafka_config = json.load(kafka_config_file)
+
 	# Instantiate a fake log generator
 	if mode == 'access':
-		log_producer = fake_access_producer(log, config, mode)
+		log_producer = fake_access_producer(log, config, kafka_config, mode)
 	else:
-		log_producer = fake_error_producer(log, config, mode)
+		log_producer = fake_error_producer(log, config, kafka_config, mode)
 
 	log_producer.run()
 
