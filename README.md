@@ -48,7 +48,11 @@ Currently we support generating and analyzing 2 [log formats](https://github.com
 
 The generated log lines will be stored into files by default, you can also stream them into the analysis part through TCP sockets or Apache Kafka.
 
-In real world, log traffic may have huge **peaks**, and these peaks may lead to high latencies in our streaming system. So the generator supports suddenly producing huge amounts of logs to itry to give the streaming system more pressures.
+In real world, log traffic may have huge **peaks**, and these peaks may lead to high latencies in our streaming system. 
+
+So the generator supports suddenly producing huge amounts of logs to try to give the streaming system more pressures.
+
+Log import rates showd by Spark UI:
 
 <img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_peak.png" />
 
