@@ -97,9 +97,12 @@ class fake_error_gen(fake_log_gen):
 		self.access_min = self.config["access"]["interval"]["min"]
 		self.access_max = self.config["access"]["interval"]["max"]
 
-		self.info_min = self.config["info"]["interval"]["min"]
-		self.info_max = self.config["info"]["interval"]["max"]
+		self.info_normal = self.config["info"]["interval"]["normal"]	
+		self.info_peak = self.config["info"]["interval"]["peak"]	
 		self.infos = self.config["info"]["message"]
+
+		self.info_peak_flag = False
+		self.info_peak_counter = 0
 
 		self.warn_min = self.config["warn"]["interval"]["min"]
 		self.warn_max = self.config["warn"]["interval"]["max"]
