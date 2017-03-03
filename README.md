@@ -191,7 +191,25 @@ $SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-0
 
 ## Performance
 
-### Demo
+* Machine spec:
+
+    * Platform: My own laptop
+
+    * Operating System: Ubuntu 14.04.5
+
+    * CPU: Core i7-4710 (# of cores: 4)
+
+    * RAM: 4GB
+
+* Spark version: 2.0.0
+
+* Python Version: 3.4.3
+
+* Performance Statistics:
+
+|Input Rate|24.24 Rec/Sec|
+|Batch Interval|2 Sec|
+
 
 
 ## Resources
