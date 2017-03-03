@@ -14,6 +14,8 @@ import time
 from asyncio import coroutine
 import numpy
 
+# Used to generate Apache Access Logs
+# And send to Kafka
 class fake_access_producer(fake_log_gen.fake_access_gen):
 
 	def run(self):
@@ -51,6 +53,8 @@ class fake_access_producer(fake_log_gen.fake_access_gen):
 			yield from asyncio.sleep(random.uniform(self.access_min, self.access_max))
 	
 
+# Used to generate Apache Error Logs
+# And send to Kafka
 class fake_error_producer(fake_log_gen.fake_error_gen):
 
 	def run(self):
@@ -67,6 +71,22 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 			yield from asyncio.sleep(int(self.config["heartbeat"]["interval"]))
 
 	@coroutine
+	def info_lines(self):
+		while True:
+			pid = ''.join(str(random.randint(0, 9)) for i in range(5))
+			tid = ''.join(str(random.randint(0, 9)) for i in range(10))
+			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
+			# "%a %b %d %H:%M:%S %Y"
+			now = time.localtime()
+			asctime = '[' + time.strftime("%a %b %d %H:%M:%S %Y", now) + '] '
+			level_name = '[INFO] '
+			msg = "[pid %s:tid %s] [client %s] %s" % (pid, tid, ip, self.infos[random.randrange(len(self.infos))])
+			data = asctime + level_name + msg
+			self.log.info(data)
+			self.producer.send('TutorialTopic', (data+'\n').encode())
+			yield from asyncio.sleep(random.uniform(self.info_min, self.info_max))
+
+	@coroutine
 	def warn_lines(self):
 		while True:
 			pid = ''.join(str(random.randint(0, 9)) for i in range(5))
@@ -75,7 +95,7 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 			# "%a %b %d %H:%M:%S %Y"
 			now = time.localtime()
 			asctime = '[' + time.strftime("%a %b %d %H:%M:%S %Y", now) + '] '
-			level_name = '[ERROR] '
+			level_name = '[WARNING] '
 			msg = "[pid %s:tid %s] [client %s] %s" % (pid, tid, ip, self.warnings[random.randrange(len(self.warnings))])
 			data = asctime + level_name + msg
 			self.log.warning(data)
@@ -91,7 +111,7 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
 			now = time.localtime()
 			asctime = '[' + time.strftime("%a %b %d %H:%M:%S %Y", now) + '] '
-			level_name = '[WARNING] '
+			level_name = '[ERROR] '
 			msg = "[pid %s:tid %s] [client %s] %s" % (pid, tid, ip, self.errors[random.randrange(len(self.errors))])
 			data = asctime + level_name + msg
 			self.log.error(data)
