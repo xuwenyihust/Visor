@@ -108,9 +108,12 @@ class fake_error_gen(fake_log_gen):
 		self.warn_max = self.config["warn"]["interval"]["max"]
 		self.warnings = self.config["warn"]["message"]
 
-		self.error_min = self.config["error"]["interval"]["min"]
-		self.error_max = self.config["error"]["interval"]["max"]
+		self.error_normal = self.config["error"]["interval"]["normal"]
+		self.error_peak = self.config["error"]["interval"]["peak"]
 		self.errors = self.config["error"]["message"]
+		
+		self.error_peak_flag = False
+		self.error_peak_counter = 0
 
 	def run(self): 
 		loop = asyncio.get_event_loop()
