@@ -198,14 +198,14 @@ Check the [Visor's Wiki](https://github.com/xuwenyihust/Visor/wiki/Environment) 
 
 ## Performance
 
-  |Spec|Stat|
-  |------|------|
-  |Batch Interval|3 Sec|
-  |# of Executors|1|
-  |# of Cores per Executor|4|
-  |# of Kafka Tpoic Partition|1|
-  |Avg Input Rate|24.24 Rec/Sec|
-  |Avg Processing Time|1 Sec 962ms|
+ |Spec|Stat|
+ |------|------|
+ |Batch Interval|3 Sec|
+ |# of Executors|1|
+ |# of Cores per Executor|4|
+ |# of Kafka Tpoic Partition|1|
+ |Avg Input Rate|24.24 Rec/Sec|
+ |Avg Processing Time|1 Sec 962ms|
 
 
 ## Resources
