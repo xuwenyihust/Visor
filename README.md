@@ -192,36 +192,20 @@ python3.4 $VISORHOME/src/fake_log_gen/fake_log_producer.py -m [access/error] -o 
 $SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.0 $VISORHOME/src/kafka_monitor/kafka_monitor.py > $VISORHOME/log/kafka_monitor.log
 ```
 
+## Environment
+
+Check the [Visor's Wiki](https://github.com/xuwenyihust/Visor/wiki/Environment) to see the test environment.
+
 ## Performance
 
-* Machine Spec:
-
-    * Platform: My own laptop
-
-    * Operating System: Ubuntu 14.04.5
-
-    * CPU: Core i7-4710 (# of cores: 4)
-
-    * RAM: 4GB
-
-* Spark Version: 2.0.0
-
-* Kafka Version: 0.8.2.1
-
-* Python Version: 3.4.3
-
-* Spark Deployment Mode: Standalone
-
-* Performance Statistics:
-
-|Spec|Stat|
-|------|------|
-|Batch Interval|3 Sec|
-|# of Executors|1|
-|# of Cores per Executor|4|
-|# of Kafka Tpoic Partition|1|
-|Avg Input Rate|24.24 Rec/Sec|
-|Avg Processing Time|1 Sec 962ms|
+  |Spec|Stat|
+  |------|------|
+  |Batch Interval|3 Sec|
+  |# of Executors|1|
+  |# of Cores per Executor|4|
+  |# of Kafka Tpoic Partition|1|
+  |Avg Input Rate|24.24 Rec/Sec|
+  |Avg Processing Time|1 Sec 962ms|
 
 
 ## Resources
