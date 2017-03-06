@@ -87,11 +87,11 @@ The mini-monitor is a simple prototype, written in pure Python. It can only work
 The application implemented with Spark Streaming can realize real-time when used with Apache Kafka.
 
 ### Alert System & Summary Report
-* [alert system](https://github.com/xuwenyihust/Visor/wiki/Alert-System) 
+* [Alert System](https://github.com/xuwenyihust/Visor/wiki/Alert-System) 
   
   Can detect & announce errors with very short latency through email.
 
-* [summary report](https://github.com/xuwenyihust/Visor/wiki/Summary-Report) 
+* [Summary Report](https://github.com/xuwenyihust/Visor/wiki/Summary-Report) 
 
   Will be generated every interval (configured by users), to report informations including total # of errors in the last report interval, error rate, top ip addresses etc.
 
