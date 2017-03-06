@@ -59,7 +59,7 @@ So the generator supports suddenly producing huge amounts of logs in a short tim
 
 * **Log import rates shown by Spark UI:** (*with backpressure off*)
 
-  <img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_peak.png" />
+  <img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_peak.JPG" />
 
 * **Corresponding spark streaming process time:**
 
