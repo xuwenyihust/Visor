@@ -223,6 +223,7 @@ Check the [Visor's Wiki](https://github.com/xuwenyihust/Visor/wiki/Environment) 
 * [Apache Log Files](https://httpd.apache.org/docs/1.3/logs.html)
 * [Unit Testing TCP Server & Client with Python](http://www.devdungeon.com/content/unit-testing-tcp-server-client-python)
 * [How to choose the number of topicspartitions in a kafka cluster](https://www.confluent.io/blog/how-to-choose-the-number-of-topicspartitions-in-a-kafka-cluster/)
+* [kafka direct + spark streaming + checkpoints + code changes](https://community.cloudera.com/t5/Advanced-Analytics-Apache-Spark/kafka-direct-spark-streaming-checkpoints-code-changes/m-p/38786#M1524)
 
 ## License
 See the LICENSE file for license rights and limitations (MIT).
