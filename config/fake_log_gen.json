@@ -44,8 +44,8 @@
 	},
 	"warn": {
 		"interval": {
-			"min": 1,
-			"max": 2
+			"normal": [[0.01, 0.1], [0.06, 0.12], [0.1, 0.15]],
+			"peak": [[0.007, 0.01], [0.008, 0.01], [0.01, 0.015], [0.05, 0.01]]
 			},
 		"message": [
 			"Have no idea what the professor is talking about", 
