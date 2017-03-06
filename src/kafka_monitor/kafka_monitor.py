@@ -20,6 +20,7 @@ class kafka_monitor(object):
 		conf.setMaster(self.config['master_url'])
 		conf.setAppName(self.config['app_name'])
 		#conf.set("spark.cores.max", "2")
+		conf.set("spark.streaming.backpressure.enabled","true")
 		# Initialize a SparkContext
 		sc = SparkContext(conf=conf)
 		# Set the batch interval to be 1 sec
