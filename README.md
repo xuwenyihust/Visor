@@ -55,7 +55,7 @@ The generated log lines will be stored into files by default, you can also strea
 
 In real world, log traffic may have huge **peaks**, and these peaks may lead to high latencies in our streaming system. 
 
-So the generator supports suddenly producing huge amounts of logs to try to give the streaming system more pressures.
+So the generator supports suddenly producing huge amounts of logs in a short time to try to give the streaming system more pressures.
 
 * **Log import rates showd by Spark UI:**
 
@@ -64,6 +64,13 @@ So the generator supports suddenly producing huge amounts of logs to try to give
 * **Corresponding spark streaming process time:**
 
   <img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_peak_process.png" />
+
+#### Log Content Control
+
+The generator supports controlling the log fields contents, such as HTTP status code in access logs and client address in error logs.
+
+* **Client address distribution:** (*binomial distribution*)
+
 
 ### Log Import
 Support 3 log import modes:
