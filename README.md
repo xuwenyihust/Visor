@@ -91,7 +91,7 @@ The [alert system](https://github.com/xuwenyihust/Visor/wiki/Alert-System) can d
 
 The [summary report](https://github.com/xuwenyihust/Visor/wiki/Summary-Report) will be generated every interval (configured by users), to report informations including total # of errors in the last report interval, error rate, top ip addresses etc.
 
-[summary report](https://github.com/xuwenyihust/Visor/blob/master/img/summary_report.JPG)
+![summary report](https://github.com/xuwenyihust/Visor/blob/master/img/summary_report.JPG)
 
 ### Architecture
 
