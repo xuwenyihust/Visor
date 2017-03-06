@@ -97,9 +97,10 @@ class fake_error_gen(fake_log_gen):
 		# Dict that contains config info
 		self.config = config
 	
-		self.access_min = self.config["access"]["interval"]["min"]
-		self.access_max = self.config["access"]["interval"]["max"]
+		#self.access_min = self.config["access"]["interval"]["min"]
+		#self.access_max = self.config["access"]["interval"]["max"]
 
+		# Config for [INFO] logs
 		self.info_normal = self.config["info"]["interval"]["normal"]	
 		self.info_peak = self.config["info"]["interval"]["peak"]	
 		self.infos = self.config["info"]["message"]
@@ -107,10 +108,15 @@ class fake_error_gen(fake_log_gen):
 		self.info_peak_flag = False
 		self.info_peak_counter = 0
 
-		self.warn_min = self.config["warn"]["interval"]["min"]
-		self.warn_max = self.config["warn"]["interval"]["max"]
+		# Config for [WARN] logs
+		self.warn_normal = self.config["warn"]["interval"]["normal"]
+		self.warn_peak = self.config["warn"]["interval"]["peak"]
 		self.warnings = self.config["warn"]["message"]
 
+		self.warn_peak_flag = False
+		self.warn_peak_counter = 0
+
+		# Config for [ERROR] logs
 		self.error_normal = self.config["error"]["interval"]["normal"]
 		self.error_peak = self.config["error"]["interval"]["peak"]
 		self.errors = self.config["error"]["message"]
@@ -118,6 +124,7 @@ class fake_error_gen(fake_log_gen):
 		self.error_peak_flag = False
 		self.error_peak_counter = 0
 
+		# Config for Kafka topic to produce into
 		self.topic = kafka_config["kafka"]["topic"]
 
 

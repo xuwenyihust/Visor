@@ -65,8 +65,7 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 	def heartbeat_lines(self):
 		while True:
 			data = "[-] [-] " + self.config["heartbeat"]["message"]
-			self.log.info(data)
-			#self.client.send((data+'\n').encode())
+			self.log.info(data)	
 			self.producer.send(self.topic, (data+'\n').encode())
 			yield from asyncio.sleep(int(self.config["heartbeat"]["interval"]))
 
@@ -118,7 +117,24 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 			self.log.warning(data)
 			#self.client.send((data+'\n').encode())
 			self.producer.send(self.topic, (data+'\n').encode())
-			yield from asyncio.sleep(random.uniform(self.warn_min, self.warn_max))
+
+			if not self.warn_peak_flag:
+				warn_normal = self.warn_normal[random.randint(0, len(self.warn_normal)-1)]
+				yield from asyncio.sleep(random.uniform(warn_normal[0], warn_normal[1]))
+				if self.warn_peak_counter > 50:
+					self.warn_peak_flag = True
+					self.warn_peak_counter = 0
+				else:
+					self.warn_peak_counter += random.uniform(0.05,0.5)
+			else:
+				warn_peak = self.warn_peak[random.randint(0, len(self.warn_peak)-1)]
+				yield from asyncio.sleep(random.uniform(warn_peak[0], warn_peak[1]))
+				if self.warn_peak_counter > 250:
+					self.warn_peak_flag = False
+					self.warn_peak_counter = 0
+				else:
+					self.warn_peak_counter += random.uniform(1, 1.2)
+
 
 	@coroutine
 	def error_lines(self):
