@@ -61,10 +61,6 @@ So the generator supports suddenly producing huge amounts of logs in a short tim
 
   <img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_peak.JPG" />
 
-* **Corresponding spark streaming process time:**
-
-  <img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_peak_process.png" />
-
 #### Log Content Control
 
 The generator supports controlling the log fields contents, such as HTTP status code in access logs and client address in error logs.
