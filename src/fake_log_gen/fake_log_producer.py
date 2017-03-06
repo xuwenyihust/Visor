@@ -74,7 +74,12 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 		while True:
 			pid = ''.join(str(random.randint(0, 9)) for i in range(5))
 			tid = ''.join(str(random.randint(0, 9)) for i in range(10))
-			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
+			# Select ip from the initilized ip pool of size self.ip_num
+			# Apply a binomial distribution (discrete normal dist)
+			# to select ips from the pool
+			ip_index = numpy.random.binomial(n=self.ip_num, p=0.8, size=1)
+			ip = self.ips[ip_index]
+			
 			# "%a %b %d %H:%M:%S %Y"
 			now = time.localtime()
 			asctime = '[' + time.strftime("%a %b %d %H:%M:%S %Y", now) + '] '
@@ -107,7 +112,11 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 		while True:
 			pid = ''.join(str(random.randint(0, 9)) for i in range(5))
 			tid = ''.join(str(random.randint(0, 9)) for i in range(10))
-			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
+			# Select ip from the initilized ip pool of size self.ip_num
+			# Apply a binomial distribution (discrete normal dist)
+			# to select ips from the pool
+			ip_index = numpy.random.binomial(n=self.ip_num, p=0.8, size=1)
+			ip = self.ips[ip_index]
 			# "%a %b %d %H:%M:%S %Y"
 			now = time.localtime()
 			asctime = '[' + time.strftime("%a %b %d %H:%M:%S %Y", now) + '] '
@@ -118,6 +127,7 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 			#self.client.send((data+'\n').encode())
 			self.producer.send(self.topic, (data+'\n').encode())
 
+			# Peak gerenation control
 			if not self.warn_peak_flag:
 				warn_normal = self.warn_normal[random.randint(0, len(self.warn_normal)-1)]
 				yield from asyncio.sleep(random.uniform(warn_normal[0], warn_normal[1]))
@@ -141,7 +151,12 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 		while True:
 			pid = ''.join(str(random.randint(0, 9)) for i in range(5))
 			tid = ''.join(str(random.randint(0, 9)) for i in range(10))
-			ip = '.'.join(str(random.randint(0, 255)) for i in range(4))
+			# Select ip from the initilized ip pool of size self.ip_num
+			# Apply a binomial distribution (discrete normal dist)
+			# to select ips from the pool
+			ip_index = numpy.random.binomial(n=self.ip_num, p=0.8, size=1)
+			ip = self.ips[ip_index]
+	
 			now = time.localtime()
 			asctime = '[' + time.strftime("%a %b %d %H:%M:%S %Y", now) + '] '
 			level_name = '[ERROR] '
@@ -151,6 +166,7 @@ class fake_error_producer(fake_log_gen.fake_error_gen):
 			#self.client.send((data+'\n').encode())
 			self.producer.send(self.topic, (data+'\n').encode())
 
+			# Peak gerenation control
 			if not self.error_peak_flag:
 				error_normal = self.error_normal[random.randint(0, len(self.error_normal)-1)]
 				yield from asyncio.sleep(random.uniform(error_normal[0], error_normal[1]))

@@ -30,6 +30,9 @@ class fake_log_gen(object):
 		loop.close()
 
 
+#############################
+# Apache Access Log Generator
+#############################
 class fake_access_gen(fake_log_gen):
 
 	def __init__(self, log, config, kafka_config, mode):
@@ -89,6 +92,9 @@ class fake_access_gen(fake_log_gen):
 			yield from asyncio.sleep(random.uniform(self.access_min, self.access_max))
 
 
+#############################
+#  Apache Error Log Generator
+#############################
 class fake_error_gen(fake_log_gen):
 
 	def __init__(self, log, config, kafka_config, mode):
@@ -96,9 +102,6 @@ class fake_error_gen(fake_log_gen):
 		self.mode = mode
 		# Dict that contains config info
 		self.config = config
-	
-		#self.access_min = self.config["access"]["interval"]["min"]
-		#self.access_max = self.config["access"]["interval"]["max"]
 
 		# Config for [INFO] logs
 		self.info_normal = self.config["info"]["interval"]["normal"]	
@@ -126,6 +129,11 @@ class fake_error_gen(fake_log_gen):
 
 		# Config for Kafka topic to produce into
 		self.topic = kafka_config["kafka"]["topic"]
+
+		# ip (client address) pool generation
+		# with the pool size of 50
+		self.ip_num = 50
+		self.ips = ['.'.join(str(random.randint(0, 255)) for i in range(4)) for i in range(self.ip_num)]
 
 
 	def run(self): 
