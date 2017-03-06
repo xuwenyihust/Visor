@@ -197,7 +197,7 @@ Statistics:
 											.map(lambda x: (x.split(']')[3].lstrip(' ').lstrip('[client '),1)) \
 											.reduceByKey(lambda x, y: x+y) \
 											.map(lambda x: (x[1], x[0])) \
-											.transform(lambda x: x.sortByKey()) \
+											.transform(lambda x: x.sortByKey(ascending=False)) \
 											.map(lambda x: (x[1], x[0]))
 
 		# From val_sum_lines_top_ip, get the top 3 client ip addresses
@@ -219,7 +219,7 @@ Statistics:
 		error_sum_lines_top_ip = error_sum_lines.map(lambda x: (x.split(']')[3].lstrip(' ').lstrip('[client '),1)) \
 												.reduceByKey(lambda x, y: x+y) \
 												.map(lambda x: (x[1], x[0])) \
-												.transform(lambda x: x.sortByKey()) \
+												.transform(lambda x: x.sortByKey(ascending=False)) \
 												.map(lambda x: (x[1], x[0]))
 
 		# From error_sum_lines_top_ip, get the top 3 client ip addresses
