@@ -61,7 +61,7 @@ So the generator supports suddenly producing huge amounts of logs in a short tim
 
   <img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_peak.png" />
 
-* **Corresponding spark streaming process time:**
+* **Corresponding spark streaming process time:** (*with backpressure off*)
 
   <img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_peak_process.png" />
 
@@ -219,7 +219,7 @@ Check the [Visor's Wiki](https://github.com/xuwenyihust/Visor/wiki/Environment) 
 |# of Executors|1|
 |# of Cores per Executor|4|
 |# of Kafka Tpoic Partition|1|
-|Avg Input Rate|24.24 Rec/Sec|
+|Avg Input Rate|41.76 Rec/Sec|
 |Avg Processing Time|1 Sec 962ms|
 
 
