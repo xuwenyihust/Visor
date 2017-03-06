@@ -70,6 +70,7 @@ So the generator supports suddenly producing huge amounts of logs in a short tim
 The generator supports controlling the log fields contents, such as HTTP status code in access logs and client address in error logs.
 
 * **Client address distribution:** (*binomial distribution*)
+
   Initialize a pool of client addresses, then generate the index to the pool applying binomial distribution every time to select address for a error log line.
 
   <img src="https://github.com/xuwenyihust/Visor/blob/master/img/fake_log_ip_dist.JPG" />
