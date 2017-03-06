@@ -216,7 +216,7 @@ Check the [Visor's Wiki](https://github.com/xuwenyihust/Visor/wiki/Environment) 
 |# of Cores per Executor|4|
 |# of Kafka Tpoic Partition|1|
 |Avg Input Rate|41.76 Rec/Sec|
-|Avg Processing Time|1 Sec 962ms|
+|Avg Processing Time|2 Sec 256ms|
 
 
 ## Resources
