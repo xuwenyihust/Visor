@@ -232,6 +232,10 @@ Check the [Visor's Wiki](https://github.com/xuwenyihust/Visor/wiki/Environment) 
 * [Unit Testing TCP Server & Client with Python](http://www.devdungeon.com/content/unit-testing-tcp-server-client-python)
 * [How to choose the number of topicspartitions in a kafka cluster](https://www.confluent.io/blog/how-to-choose-the-number-of-topicspartitions-in-a-kafka-cluster/)
 * [kafka direct + spark streaming + checkpoints + code changes](https://community.cloudera.com/t5/Advanced-Analytics-Apache-Spark/kafka-direct-spark-streaming-checkpoints-code-changes/m-p/38786#M1524)
+* [Four Things to Know About Reliable Spark Streaming with Typesafe and Databricks](https://www.slideshare.net/Typesafe_Inc/four-things-to-know-about-reliable-spark-streaming-with-typesafe-and-databricks)
+* [Spark & Kafka - Achieving zero data-loss](http://aseigneurin.github.io/2016/05/07/spark-kafka-achieving-zero-data-loss.html)
+* [Exploring Stateful Streaming with Apache Spark](http://asyncified.io/2016/07/31/exploring-stateful-streaming-with-apache-spark/)
+
 
 ## License
 See the LICENSE file for license rights and limitations (MIT).
