@@ -234,6 +234,7 @@ Check the [Visor's Wiki](https://github.com/xuwenyihust/Visor/wiki/Environment) 
 
 * Cannot count too much on backpressure
     * You see the import rate drops after some time, but scheduling latency doesn't recover
+    * Not sure about 'spark.streaming.backpressure.initialRate''s equivalent in kafka direct API.   
 
 * Change the batch interval, the processing time will also change slightly
     * (batch interval: 2.5, proce time: 1.8) --> (batch interval: 2, proce time: 2.1)
