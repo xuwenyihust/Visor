@@ -227,9 +227,15 @@ Check the [Visor's Wiki](https://github.com/xuwenyihust/Visor/wiki/Environment) 
 |Avg Processing Time|1 Sec 982ms|
 
 ## Just Some Thoughts
-* There will be some latency (~10 minutes) for the backpressure to take effect.
+* Run Spark on your laptop, no matter how many cores do you own, you can have only one executor
 
-* Change the batch interval, the processing time will also change slightly.
+* There will be some latency (~10 minutes) for the backpressure to take effect
+![](https://github.com/xuwenyihust/Visor/blob/master/img/visor_backpressure.JPG)
+
+* Cannot count too much on backpressure
+    * You see the import rate drops after some time, but scheduling latency doesn't recover
+
+* Change the batch interval, the processing time will also change slightly
     * (batch interval: 2.5, proce time: 1.8) --> (batch interval: 2, proce time: 2.1)
 
 ## Resources
