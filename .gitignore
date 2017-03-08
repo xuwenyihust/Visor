@@ -32,3 +32,14 @@ test/.ipynb_checkpoints/
 test/fake_access_stream_test.log
 log/kafka_monitor.log
 log/monitor.log
+src/kafka_monitor/.checkpoint-1488947432500.bk.crc
+src/kafka_monitor/.checkpoint-1488947432500.crc
+src/kafka_monitor/.checkpoint-1488947435000.bk.crc
+src/kafka_monitor/.checkpoint-1488947435000.crc
+src/kafka_monitor/.checkpoint-1488947437500.bk.crc
+src/kafka_monitor/.checkpoint-1488947437500.crc
+src/kafka_monitor/.checkpoint-1488947440000.bk.crc
+src/kafka_monitor/.checkpoint-1488947440000.crc
+src/kafka_monitor/.checkpoint-1488947442500.bk.crc
+src/kafka_monitor/checkpoint/
+src/kafka_monitor/.checkpoint-1488947442500.crc
