@@ -20,13 +20,14 @@ class kafka_monitor(object):
 		conf.setMaster(self.config['master_url'])
 		conf.setAppName(self.config['app_name'])
 		#conf.set("spark.cores.max", "2")
-		conf.set("spark.streaming.backpressure.enabled","true")
+		conf.set("spark.streaming.backpressure.enabled",True)	
+		#conf.set("spark.streaming.backpressure.initialRate", "60")	
 		# Can set the max rate per kafka partition if needed
-		conf.set("spark.streaming.kafka.maxRatePerPartition","100")
+		conf.set("spark.streaming.kafka.maxRatePerPartition", "100")
 		# Initialize a SparkContext
 		sc = SparkContext(conf=conf)
 		# Set the batch interval to be 1 sec
-		self.ssc = StreamingContext(sc, self.config['batch_interval'])
+		self.ssc = StreamingContext(sc, self.config['batch_interval'])	
 
 		# Set the Kafka related params
 		self.addr = self.config['kafka']['addr']
@@ -169,6 +170,7 @@ Statistics:
 
 
 	def run(self):
+
 		# Consume Kafka streams directly, without receivers
 		lines = KafkaUtils.createDirectStream(self.ssc, [self.topic], {"metadata.broker.list": self.addr})	
 		# Performe lines.foreachRDD(lambda x: print(x.collect()))
