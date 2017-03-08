@@ -8,6 +8,9 @@ import time
 import datetime
 
 
+
+
+
 class kafka_monitor(object):
 
 	def __init__(self, config, config_private):
@@ -15,23 +18,9 @@ class kafka_monitor(object):
 		self.config = config
 		# Load private config file
 		self.config_private = config_private
-		# Define Spark configuration
-		conf = SparkConf()
-		conf.setMaster(self.config['master_url'])
-		conf.setAppName(self.config['app_name'])
-		#conf.set("spark.cores.max", "2")
-		conf.set("spark.streaming.backpressure.enabled",True)	
-		#conf.set("spark.streaming.backpressure.initialRate", "60")	
-		# Can set the max rate per kafka partition if needed
-		conf.set("spark.streaming.kafka.maxRatePerPartition", "100")
-		# Initialize a SparkContext
-		sc = SparkContext(conf=conf)
-		# Set the batch interval to be 1 sec
-		self.ssc = StreamingContext(sc, self.config['batch_interval'])	
-
 		# Set the Kafka related params
 		self.addr = self.config['kafka']['addr']
-		self.topic = self.config['kafka']['topic']	
+		self.topic = self.config['kafka']['topic']
 
 		# Set the summary report params
 		# report interval: in terms of sec
@@ -48,7 +37,6 @@ class kafka_monitor(object):
 		# Pick out the top ips in [ERROR] logs
 		self.top_error_ips=[('None', 0) for i in range(3)]
 
-	
 	# Send an email every time detects an error log
 	def error_alert_email(self, error):
 		# In case of empty list
@@ -65,13 +53,9 @@ class kafka_monitor(object):
 			SUBJECT = self.config['email']['alert']['subject']
 			TEXT = '''
 An error occurred in the cluster.
-
 Time: %s
-
 Process: %s
-
 Client: %s
-
 Message: %s
 		''' % (error_time, error_process, error_client, error_msg) 
 	
@@ -94,8 +78,7 @@ Message: %s
 
 			server.quit()
 
-	
-	
+
 	# Send an email every pre-defined time (30 min / 2 hrs / 1 day ...)
 	# to report the summary
 	def summary_report_email(self, errors, error_cnt):
@@ -104,31 +87,23 @@ Message: %s
 			SUBJECT = self.config['email']['report']['subject']
 			TEXT = '''
 Basic:
-
 	Log count:
 	- {lc}
-
 	Error count:
 	- {ec}
-
 	Error rate:
 	- {er: .2f}%
-
 Statistics:
-
 	Log import rate:
 	- {lr: .2f} per sec
-
 	Top ip addresses:
 	- {top_ip_0}: {top_ip_0_num}
 	- {top_ip_1}: {top_ip_1_num}
 	- {top_ip_2}: {top_ip_2_num}
-
 	Top error ip addresses:
 	- {top_eip_0}: {top_eip_0_num}
 	- {top_eip_1}: {top_eip_1_num}
 	- {top_eip_2}: {top_eip_2_num}
-
 			'''.format(lc = self.total_log_num, \
 					   ec = error_cnt, \
 					   er = error_cnt/self.total_log_num*100, \
@@ -168,11 +143,23 @@ Statistics:
 			server.quit()
 
 
-
-	def run(self):
-
+	def functionToCreateContext(self):
+		# Define Spark configuration
+		conf = SparkConf()
+		conf.setMaster(self.config['master_url'])
+		conf.setAppName(self.config['app_name'])
+		#conf.set("spark.cores.max", "2")
+		conf.set("spark.streaming.backpressure.enabled",True)	
+		#conf.set("spark.streaming.backpressure.initialRate", "60")	
+		# Can set the max rate per kafka partition if needed
+		conf.set("spark.streaming.kafka.maxRatePerPartition", "100")
+		# Initialize a SparkContext
+		sc = SparkContext(conf=conf)
+		# Set the batch interval to be 1 sec
+		ssc = StreamingContext(sc, self.config['batch_interval'])	
+		
 		# Consume Kafka streams directly, without receivers
-		lines = KafkaUtils.createDirectStream(self.ssc, [self.topic], {"metadata.broker.list": self.addr})	
+		lines = KafkaUtils.createDirectStream(ssc, [self.topic], {"metadata.broker.list": self.addr})	
 		# Performe lines.foreachRDD(lambda x: print(x.collect()))
 		# Get: [(None, '[-] [-] HEARTBEAT\n'), (None, '[-] [-] HEARTBEAT\n'), (None, '[-] [-] HEARTBEAT\n')]	[(None, '[-] [-] HEARTBEAT\n'), (None, '[-] [-] HEARTBEAT\n'), (None, '[-] [-] HEARTBEAT\n')] ...	
 
@@ -184,9 +171,11 @@ Statistics:
 
 		# Filter out the error logs
 		error_lines = val_lines.filter(lambda x: 'ERROR' in x)
+		#error_lines.pprint()
 
 		# Every time an error occurs, send an alert email	
 		error_lines.foreachRDD(lambda x: self.error_alert_email(x.collect()))
+
 
 		# Use val_sum_lines to store all log lines in the window
 		# val_sum_lines.count() will be used as the total num of logs in the window
@@ -246,11 +235,15 @@ Statistics:
 
 		# Collect the total number of logs in the current window	
 		val_sum_lines.foreachRDD(get_total_log_num)
-	
-		#####################################################
-		# Start the streaming process
-		self.ssc.start()	
-		self.ssc.awaitTermination()
+
+		return ssc	
+
+
+	def run(self):
+		ssc = StreamingContext.getOrCreate(os.environ['VISORHOME']+'/src/kafka_monitor/checkpoint/', lambda: self.functionToCreateContext()) 
+		ssc.start()  
+		ssc.awaitTermination() 
+
 
 
 if __name__=="__main__":
@@ -264,4 +257,8 @@ if __name__=="__main__":
 
 	monitor = kafka_monitor(config, config_private)
 	monitor.run()
+
+
+
+
 
