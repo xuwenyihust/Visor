@@ -219,13 +219,18 @@ Check the [Visor's Wiki](https://github.com/xuwenyihust/Visor/wiki/Environment) 
 
 |Spec|Stat|
 |------|------|
-|Batch Interval|3 Sec|
+|Batch Interval|2.5 Sec|
 |# of Executors|1|
 |# of Cores per Executor|4|
 |# of Kafka Topic Partition|1|
 |Avg Input Rate|41.76 Rec/Sec|
-|Avg Processing Time|2 Sec 256ms|
+|Avg Processing Time|1 Sec 982ms|
 
+## Just Some Thoughts
+* There will be some latency (~10 minutes) for the backpressure to take effect.
+
+* Change the batch interval, the processing time will also change slightly.
+    * (batch interval: 2.5, proce time: 1.8) --> (batch interval: 2, proce time: 2.1)
 
 ## Resources
 * [Apache Log Files](https://httpd.apache.org/docs/1.3/logs.html)
