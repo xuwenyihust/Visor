@@ -1,7 +1,7 @@
 {
 	"master_url": "local[4]",
 	"app_name": "Kafka Monitor",
-	"batch_interval": 3,
+	"batch_interval": 2.5,
 	"kafka": {
 		"addr": "localhost:9092",
 		"topic": "Logs"
