@@ -6,6 +6,7 @@
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/xuwenyihust/Visor.svg)](http://isitmaintained.com/project/xuwenyihust/Visor "Percentage of issues still open")
 
 <img src="https://raw.githubusercontent.com/xuwenyihust/Visor/master/img/Visor.JPG" align="right" />
+
 # Visor: Real-time Log Monitor - [Read The Docs](https://goo.gl/F0rADZ)
 
 Web page: *https://xuwenyihust.github.io/Visor/*
